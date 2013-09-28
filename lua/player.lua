@@ -9,40 +9,44 @@ require('lua.danmaku')
 
 Player = {}
 
-Player.image = love.graphics.newImage("gfx/player.png")
+function Player:reset()
 
--- Player position
--- Assume playing field 400x512, indexed from topleft corner
-Player.x = 200
-Player.y = 500
+  -- Player image
+  Player.image = love.graphics.newImage("gfx/player.png")
+  -- image offset
+  Player.image_offx = Player.image:getWidth() / 2
+  Player.image_offy = Player.image:getHeight() / 2
 
-Player.hb_r = 4 -- hitbox radius
-
-Player.speed = 100 -- movement speed
-
-Player.shoot_speed = 0.5 -- interval between shoots in sec, the less the faster
-Player.shoot_timeout = 0 -- time until next shoot
-
-Player.bombs = 3 -- bombs left
-
-Player.lives = 2 -- lives left, game over if less than zero
-
-function Player.reset()
-  -- Reset player to initial state
+  -- Player position
+  -- Assume playing field 400x512, indexed from topleft corner
   Player.x = 200
   Player.y = 500
-  Player.hb_r = 4
-  Player.speed = 100
-  Player.shoot_speed = 0.5
-  Player.shoot_timeout = 0
-  Player.bombs = 3
-  Player.lives = 2
+
+  Player.hb_r = 4 -- hitbox radius
+  Player.shape = Collider:addCircle(Player.x, Player.y, Player.hb_r)
+  Player.shape.body = Player
+
+  Player.speed = 100 -- movement speed
+
+  Player.shoot_speed = 0.5 -- interval between shoots in sec, the less the faster
+  Player.shoot_timeout = 0 -- time until next shoot
+
+  Player.bombs = 3 -- bombs left
+
+  Player.lives = 2 -- lives left, game over if less than zero
 end
 
 function Player:move(x, y, dt)
   -- Move player by x and y, multiplied by dt and player speed
-  Player.x = Player.x + (x * Player.speed * dt)
-  Player.y = Player.y + (y * Player.speed * dt)
+  local newx = Player.x + (x * Player.speed * dt)
+  local newy = Player.y + (y * Player.speed * dt)
+
+  if (newx < Danmaku.width and newx > 0) then
+    Player.x = newx
+  end
+  if (newy < Danmaku.height and newy > 0) then
+    Player.y = newy
+  end
 end
 
 function Player:shoot(dt)
@@ -72,8 +76,8 @@ end
 
 function Player:draw()
   love.graphics.draw(Player.image,
-                     Player.x, Player.y,
-                     0, 1, 1,
-                     Danmaku.x, Danmaku.y)
+                     Player.x + Danmaku.x, Player.y + Danmaku.y, -- pos
+                     0, 1, 1, -- rotozoom
+                     Player.image_offx, Player.image_offy) -- center
 end
 
