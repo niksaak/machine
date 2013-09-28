@@ -2,9 +2,11 @@
 -- Game state definiton
 -- version: 0.1
 -- date: 2013/09/28
--- author: roxy
+-- authors: roxy, niksaak
 ----------------------
 require('lua.assets')
+require('lua.player')
+require('lua.danmaku')
 
 ----------------------
 -- Game table
@@ -17,18 +19,42 @@ Game.__index = Game
 ----------------------
 function Game.create()
 
-    local data = {}
-    setmetatable(data, Game)
-    return data
+  local game = {}
+  setmetatable(game, Game)
+
+  Danmaku:reset()
+  Player:reset()
+
+  return game
     
 end
 
 ----------------------
 -- Update state
 ----------------------
+
 function Game:update(dt)
 
-    --
+  -- Process keyboard input.
+  -- Warnings:
+  -- + Do not move it to key(press|release) callbacks - default keyrepeat is
+  --   too slow.
+  -- + Do not implement it with elseifs - player need to be able to move in
+  --   more than one directions at onse.
+  local kbd = love.keyboard
+
+  if (kbd.isDown('up')) then
+    Player:move(0, -1, dt)
+  end
+  if (kbd.isDown('down')) then
+    Player:move(0, 1, dt)
+  end
+  if (kbd.isDown('left')) then
+    Player:move(-1, 0, dt)
+  end
+  if (kbd.isDown('right')) then
+    Player:move(1, 0, dt)
+  end
 
 end
 
@@ -37,7 +63,8 @@ end
 ----------------------
 function Game:draw()
 
-    --
+  Danmaku:draw()
+  Player:draw()
 
 end
 
@@ -46,8 +73,22 @@ end
 ----------------------
 function Game:mousepressed(x,y,button)
 
-    --
+  --
 
+end
+
+----------------------
+-- On keypress
+----------------------
+function Game:keypressed(key, isrepeat)
+
+  if (key == 'escape') then
+    love.event.push(quit)
+  end
+
+end
+
+function Game:keyreleased(key, isrepeat)
 end
 
 ----------------------
