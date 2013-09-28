@@ -1,0 +1,3 @@
+[submodule "lua/hadroncollider"]
+	path = lua/hadroncollider
+	url = git@github.com:vrld/HardonCollider.git
