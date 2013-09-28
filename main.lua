@@ -15,19 +15,23 @@ require('lua.player')
 ----------------------
 function love.load()
 
-    state = Title.create()
+  love.graphics.setMode(800, 600)
+  Collider = HC(100, on_collide)
+  state = Title.create()
     
+end
+
+----------------------
+-- Solve collisions
+----------------------
+function on_collide(dt, shp_a, shp_b, dx, dy)
 end
 
 ----------------------
 -- Update game
 ----------------------
 function love.update(dt)
-
-    if state ~= nil then
-        state:update(dt)
-    end
-
+  state:update(dt)
 end
 
 ----------------------

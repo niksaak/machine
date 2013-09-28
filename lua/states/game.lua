@@ -8,6 +8,8 @@ require('lua.assets')
 require('lua.player')
 require('lua.danmaku')
 
+HC = require('lua.hadroncollider')
+
 ----------------------
 -- Game table
 ----------------------
@@ -55,6 +57,9 @@ function Game:update(dt)
   if (kbd.isDown('right')) then
     Player:move(1, 0, dt)
   end
+
+  -- Process collisions
+  Collider:update(dt)
 
 end
 
