@@ -80,7 +80,7 @@ end
 function Title:keypressed(key, isrepeat)
 
   if (key == 'escape') then
-    love.event.push(quit)
+    love.event.push('quit')
   end
 
 end
