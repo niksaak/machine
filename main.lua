@@ -55,13 +55,12 @@ end
 ----------------------
 -- On key pressed
 ----------------------
-function love.keypressed(key)
+function love.keypressed(key, isrepeat)
+  state:keypressed(key, isrepeat)
+end
 
-    --key call
-    if key == "escape" then
-      love.event.push("quit")
-   end
-   
+function love.keyreleased(key, isrepeat)
+  state:keypressed(key, isrepeat)
 end
 
 ----------------------

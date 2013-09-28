@@ -2,10 +2,11 @@
 -- Title state definiton
 -- version: 0.1
 -- date: 2013/09/28
--- author: roxy
+-- authors: roxy, niksaak
 ----------------------
 require('lua.button')
 require('lua.assets')
+require('lua.states.game')
 
 ----------------------
 -- Title table
@@ -58,18 +59,33 @@ end
 ----------------------
 function Title:mousepressed(x,y,button)
 
-    for n,b in pairs(self.button) do
-		if b:mousepressed(x,y,button) then
-			if n == "start" then
-				-- state = Game.create()
-			elseif n == "config" then
-				-- state = Instructions.create()
-			elseif n == "quit" then
-                quit()
-			end
-		end
-	end
+  for n,b in pairs(self.button) do
+    if b:mousepressed(x,y,button) then
+      if n == "start" then
+        state = Game.create()
+      elseif n == "config" then
+        -- state = Instructions.create()
+      elseif n == "quit" then
+        quit()
+      end
+    end
+  end
 
+end
+
+----------------------
+-- Keypress
+----------------------
+
+function Title:keypressed(key, isrepeat)
+
+  if (key == 'escape') then
+    love.event.push(quit)
+  end
+
+end
+
+function Title:keyreleased(key, isrepeat)
 end
 
 ----------------------
