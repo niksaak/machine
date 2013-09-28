@@ -26,7 +26,7 @@ function Player:reset()
   Player.shape = Collider:addCircle(Player.x, Player.y, Player.hb_r)
   Player.shape.body = Player
 
-  Player.speed = 100 -- movement speed
+  Player.speed = 256 -- movement speed
 
   Player.shoot_speed = 0.5 -- interval between shoots in sec, the less the faster
   Player.shoot_timeout = 0 -- time until next shoot
