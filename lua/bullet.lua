@@ -71,7 +71,7 @@ end
 -- Collide bullet
 ----------------------
 function Bullet:collide(dt, body)
-  self.die()
+  self:die()
 end
 
 ----------------------
