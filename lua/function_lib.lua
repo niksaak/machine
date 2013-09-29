@@ -29,7 +29,7 @@ end
 ----------------------
 function stop_se()
 
-    TEsound.stop("se", true)
+  TEsound.stop("se", true)
     
 end
 
@@ -41,6 +41,14 @@ function quit()
     love.event.push("quit")
     
 end
+
+----------------------
+-- Solve collisions
+----------------------
+function on_collide(dt, shp_a, shp_b, dx, dy)
+  print('collide!')
+end
+
 ----------------------
 -- EOF
 ----------------------

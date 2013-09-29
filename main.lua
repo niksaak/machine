@@ -9,6 +9,8 @@ require('lua.define')
 require('lua.function_lib')
 require('lua.states.title')
 require('lua.player')
+require('lua.lib.class')
+
 
 ----------------------
 -- Initialise game
@@ -19,8 +21,6 @@ function love.load()
   -- love.keyboard.setKeyRepeat(true)
   Collider = HC(100, on_collide)
   state = Title.create()
-    
-end
 
 ----------------------
 -- Solve collisions
@@ -65,6 +65,9 @@ function love.keypressed(key, isrepeat)
   state:keypressed(key, isrepeat)
 end
 
+----------------------
+-- On key released
+----------------------
 function love.keyreleased(key, isrepeat)
   state:keypressed(key, isrepeat)
 end
