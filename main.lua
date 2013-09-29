@@ -9,6 +9,8 @@ require('lua.define')
 require('lua.function_lib')
 require('lua.states.title')
 require('lua.player')
+require('lua.lib.class')
+
 
 ----------------------
 -- Initialise game
@@ -18,13 +20,7 @@ function love.load()
   love.graphics.setMode(800, 600)
   Collider = HC(100, on_collide)
   state = Title.create()
-    
-end
 
-----------------------
--- Solve collisions
-----------------------
-function on_collide(dt, shp_a, shp_b, dx, dy)
 end
 
 ----------------------
@@ -63,6 +59,9 @@ function love.keypressed(key, isrepeat)
   state:keypressed(key, isrepeat)
 end
 
+----------------------
+-- On key released
+----------------------
 function love.keyreleased(key, isrepeat)
   state:keypressed(key, isrepeat)
 end
