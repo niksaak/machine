@@ -8,9 +8,9 @@ require('lua.assets')
 require('lua.danmaku')
 require('lua.player')
 require('lua.bullet')
-
+require('lua.enemies.cond')
 HC = require('lua.hadroncollider')
-
+Timer = require('lua.lib.timer')
 ----------------------
 -- Game table
 ----------------------
@@ -24,10 +24,10 @@ function Game.create()
 
   local game = {}
   setmetatable(game, Game)
-
+  game.enemy = Cond(100,20,20)
   Danmaku:reset()
   Player:reset()
-
+  Timer.new()
   return game
     
 end
@@ -79,7 +79,7 @@ function Game:update(dt)
     end
   end
   Collider:update(dt)
-
+  Timer.update(dt)
 end
 
 ----------------------
@@ -88,11 +88,11 @@ end
 function Game:draw()
 
   Danmaku:draw()
-  Player:draw()
+  --Player:draw()
   for shape in Collider:activeShapes() do
     shape.body:draw()
   end
-
+  self.enemy:draw()
 end
 
 ----------------------
@@ -115,16 +115,6 @@ function Game:keypressed(key, isrepeat)
 end
 
 function Game:keyreleased(key, isrepeat)
-end
-
-----------------------
--- Collision
-----------------------
-function Game:on_collide(dt, shp_a, shp_b, dx, dy)
-  if ((shp_a.body == Player or shp_b.body == Player) and
-      (shp_a.body == Bullet or shp_b.body == Bullet)) then
-    Player:pichun(false)
-  end
 end
 
 ----------------------
