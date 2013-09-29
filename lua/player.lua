@@ -84,6 +84,10 @@ function Player:bomb(dt)
   end
 end
 
+function Player:collide(dt, body)
+  Player:pichun()
+end
+
 function Player:pichun(instantp)
   Player.lives = Player.lives - 1
   if(instantp) then
