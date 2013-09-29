@@ -39,7 +39,9 @@ gfx.system = {
 gfx.font = {
     matricha = lg.newFont("gfx/font/matricha.ttf", 40)
 }
-
+gfx.game = {
+    cond = lg.newImage("gfx/conden.png")
+}
 ----------------------
 -- EOF
 ----------------------

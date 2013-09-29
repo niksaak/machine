@@ -8,9 +8,9 @@ require('lua.assets')
 require('lua.danmaku')
 require('lua.player')
 require('lua.bullet')
-
+require('lua.enemies.cond')
 HC = require('lua.hadroncollider')
-
+Timer = require('lua.lib.timer')
 ----------------------
 -- Game table
 ----------------------
@@ -24,10 +24,10 @@ function Game.create()
 
   local game = {}
   setmetatable(game, Game)
-
+  game.enemy = Cond(100,20,20)
   Danmaku:reset()
   Player:reset()
-
+  Timer.new()
   return game
     
 end
@@ -79,7 +79,7 @@ function Game:update(dt)
     end
   end
   Collider:update(dt)
-
+  Timer.update(dt)
 end
 
 ----------------------
@@ -88,10 +88,14 @@ end
 function Game:draw()
 
   Danmaku:draw()
+<<<<<<< HEAD
+=======
+  --Player:draw()
+>>>>>>> e33d92644efee4923267aea5158d7cd5e4b5962c
   for shape in Collider:activeShapes() do
     shape.body:draw()
   end
-
+  self.enemy:draw()
 end
 
 ----------------------

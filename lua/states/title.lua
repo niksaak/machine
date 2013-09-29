@@ -7,7 +7,7 @@
 require('lua.button')
 require('lua.assets')
 require('lua.states.game')
-
+Timer = require('lua.lib.timer')
 ----------------------
 -- Title table
 ----------------------
@@ -18,7 +18,6 @@ Title.__index = Title
 -- Construct
 ----------------------
 function Title.create()
-
     local data = {}
     setmetatable(data, Title)
     data.button =
@@ -28,16 +27,16 @@ function Title.create()
         help    = Button.create("Помощь", 250, 550),
         quit    = Button.create("Выйти", 650, 500)
     }
-    return data
-    
+    Timer.new()
+  return data
 end
 
 ----------------------
 -- Update state
 ----------------------
 function Title:update(dt)
-
-    for n,btn in pairs(self.button) do
+  Timer.update(dt)
+  for n,btn in pairs(self.button) do
 		btn:update(dt)
 	end
 
@@ -48,7 +47,7 @@ end
 ----------------------
 function Title:draw()
 
-    for n,btn in pairs(self.button) do
+  for n,btn in pairs(self.button) do
 		btn:draw()
 	end
 
@@ -80,14 +79,22 @@ end
 function Title:keypressed(key, isrepeat)
 
   if (key == 'escape') then
-    love.event.push('quit')
+    quit()
   end
 
 end
-
+----------------------
+-- Keyreleased
+----------------------
 function Title:keyreleased(key, isrepeat)
 end
 
+----------------------
+-- Solve collisions
+----------------------
+function Title:on_collide(dt, shp_a, shp_b, dx, dy)
+  -- print('collide!')
+end
 ----------------------
 -- EOF
 ----------------------
