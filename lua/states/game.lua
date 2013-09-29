@@ -88,7 +88,6 @@ end
 function Game:draw()
 
   Danmaku:draw()
-  Player:draw()
   for shape in Collider:activeShapes() do
     shape.body:draw()
   end
@@ -121,6 +120,7 @@ end
 -- Collision
 ----------------------
 function Game:on_collide(dt, shp_a, shp_b, dx, dy)
+  -- if either shape is the player and other is a bullet, PICHUN~
   if ((shp_a.body == Player or shp_b.body == Player) and
       (shp_a.body == Bullet or shp_b.body == Bullet)) then
     Player:pichun(false)
