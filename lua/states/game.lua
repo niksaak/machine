@@ -5,8 +5,8 @@
 -- authors: roxy, niksaak
 ----------------------
 require('lua.assets')
-require('lua.player')
 require('lua.danmaku')
+require('lua.player')
 
 HC = require('lua.hadroncollider')
 
@@ -58,6 +58,12 @@ function Game:update(dt)
     Player:move(1, 0, dt)
   end
 
+  -- Focus mode
+  Danmaku.focus_mode = false
+  if(kbd.isDown('lshift')) then
+    Danmaku.focus_mode = true
+  end
+
   -- Process collisions
   Collider:update(dt)
 
@@ -90,7 +96,6 @@ function Game:keypressed(key, isrepeat)
   if (key == 'escape') then
     love.event.push('quit')
   end
-
 end
 
 function Game:keyreleased(key, isrepeat)
