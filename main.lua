@@ -16,6 +16,7 @@ require('lua.player')
 function love.load()
 
   love.graphics.setMode(800, 600)
+  -- love.keyboard.setKeyRepeat(true)
   Collider = HC(100, on_collide)
   state = Title.create()
     
@@ -25,6 +26,7 @@ end
 -- Solve collisions
 ----------------------
 function on_collide(dt, shp_a, shp_b, dx, dy)
+  state:collide(dt, shp_a, shp_b, dx, dy)
 end
 
 ----------------------
