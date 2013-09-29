@@ -118,5 +118,15 @@ function Game:keyreleased(key, isrepeat)
 end
 
 ----------------------
+-- Collision
+----------------------
+function Game:on_collide(dt, shp_a, shp_b, dx, dy)
+  if ((shp_a.body == Player or shp_b.body == Player) and
+      (shp_a.body == Bullet or shp_b.body == Bullet)) then
+    Player:pichun(false)
+  end
+end
+
+----------------------
 -- EOF
 ----------------------
