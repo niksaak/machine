@@ -41,6 +41,25 @@ function quit()
     love.event.push("quit")
     
 end
+
+----------------------
+-- Lispy corner
+----------------------
+
+function some(test, seq)
+  for j in pairs(seq) do
+    local ret = test(j)
+    if (ret) then
+      return ret
+    end
+  end
+  return false
+end
+
+function notany(test, seq)
+  return not some(test, seq)
+end
+
 ----------------------
 -- EOF
 ----------------------
