@@ -88,10 +88,6 @@ end
 function Game:draw()
 
   Danmaku:draw()
-<<<<<<< HEAD
-=======
-  --Player:draw()
->>>>>>> e33d92644efee4923267aea5158d7cd5e4b5962c
   for shape in Collider:activeShapes() do
     shape.body:draw()
   end
