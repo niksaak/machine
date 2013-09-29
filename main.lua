@@ -28,7 +28,7 @@ end
 -- Solve collisions
 ----------------------
 function on_collide(dt, shp_a, shp_b, dx, dy)
-  state:collide(dt, shp_a, shp_b, dx, dy)
+  state:on_collide(dt, shp_a, shp_b, dx, dy)
 end
 
 ----------------------
