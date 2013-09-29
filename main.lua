@@ -22,6 +22,8 @@ function love.load()
   Collider = HC(100, on_collide)
   state = Title.create()
 
+end
+
 ----------------------
 -- Solve collisions
 ----------------------
