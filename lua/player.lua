@@ -32,7 +32,7 @@ function Player:reset()
   Player.speed = 256 -- movement speed
   Player.focus_speed = 128
 
-  Player.shoot_speed = 0.5
+  Player.shoot_speed = 1 / 9 -- fire 9 bullets per second
     -- interval between shoots in sec, the less the faster
   Player.shoot_timeout = 0 -- time until next shoot
 
@@ -71,7 +71,7 @@ end
 function Player:shoot(dt)
   if(Player.shoot_timeout <= 0) then
     Player.shoot_timeout = Player.shoot_speed
-    Bullet(Player.x, Player.y, 0, -1, 256, true, 'yellow_bullet')
+    Bullet(Player.x, Player.y, 0, -1, 512, true, 'yellow_bullet')
   else
     Player.shoot_timeout = Player.shoot_timeout - dt;
   end
