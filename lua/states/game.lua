@@ -7,6 +7,7 @@
 require('lua.assets')
 require('lua.danmaku')
 require('lua.player')
+require('lua.bullet')
 
 HC = require('lua.hadroncollider')
 
@@ -45,6 +46,7 @@ function Game:update(dt)
   --   more than one directions at onse.
   local kbd = love.keyboard
 
+  -- Moving
   if (kbd.isDown('up')) then
     Player:move(0, -1, dt)
   end
@@ -58,6 +60,11 @@ function Game:update(dt)
     Player:move(1, 0, dt)
   end
 
+  -- Shooting LIKE A ROSE
+  if (kbd.isDown('z')) then
+    Player:shoot(dt)
+  end
+
   -- Focus mode
   Danmaku.focus_mode = false
   if(kbd.isDown('lshift')) then
@@ -65,6 +72,12 @@ function Game:update(dt)
   end
 
   -- Process collisions
+  for shape in Collider:activeShapes() do
+    -- FIXME: looks dirty
+    if (shape.body.update ~= nil) then
+      shape.body:update(dt)
+    end
+  end
   Collider:update(dt)
 
 end
@@ -76,6 +89,9 @@ function Game:draw()
 
   Danmaku:draw()
   Player:draw()
+  for shape in Collider:activeShapes() do
+    shape.body:draw()
+  end
 
 end
 
