@@ -119,12 +119,10 @@ end
 ----------------------
 -- Collision
 ----------------------
+
 function Game:on_collide(dt, shp_a, shp_b, dx, dy)
-  -- if either shape is the player and other is a bullet, PICHUN~
-  if ((shp_a.body == Player or shp_b.body == Player) and
-      (shp_a.body == Bullet or shp_b.body == Bullet)) then
-    Player:pichun(false)
-  end
+  shp_a.body:collide(dt, shp_b.body)
+  shp_b.body:collide(dy, shp_a.body)
 end
 
 ----------------------
