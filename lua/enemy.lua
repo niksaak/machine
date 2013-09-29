@@ -73,13 +73,20 @@ end
 function Enemy:shoot()
 end
 
+----------------------
+-- Enemy dead
+----------------------
 function Enemy:die(instantp)
   Collider:remove(self.shape)
   if (not instantp) then
     -- TODO: enemy explosion here
   end
-  self.x = -1
-  self.y = -1
+  self:afterdeath()
+  self = nil
+end
+
+function Enemy:afterdeath()
+  -- redefine this for child classes which need further deinitialization
 end
 
 ----------------------
