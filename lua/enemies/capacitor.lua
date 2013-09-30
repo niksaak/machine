@@ -7,7 +7,7 @@ function(self, x, y, speed)
   Timer.add(1.2, function() self:shoot() end) -- Init shooting
 end)
 
-function Сapacitor:shoot()
+function Capacitor:shoot()
   for i = 0,4 do
     Bullet(self.x, self.y, 0, 1 + i/10, 80, false, "yellow")
   end
