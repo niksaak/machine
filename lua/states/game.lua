@@ -8,6 +8,7 @@ require('lua.assets')
 require('lua.danmaku')
 require('lua.player')
 require('lua.bullet')
+require('lua.enemy')
 require('lua.enemies.capacitor')
 HC = require('lua.hadroncollider')
 Timer = require('lua.lib.timer')
@@ -15,7 +16,7 @@ Timer = require('lua.lib.timer')
 ----------------------
 -- Construct
 ----------------------
-GameState = class(State,
+StateGame = class(State,
 function (self)
   State.init(self)
   self.enemy = nil
@@ -24,7 +25,7 @@ end)
 ----------------------
 -- Begin state
 ----------------------
-function State:initialize()
+function StateGame:initialize()
   Danmaku:reset()
   Player:reset()
   self.enemy = Capacitor(100,100,20)
@@ -33,7 +34,7 @@ end
 ----------------------
 -- Update state
 ----------------------
-function Game:update(dt)
+function StateGame:update(dt)
 
   -- Process keyboard input.
   -- Warnings:
@@ -82,7 +83,7 @@ end
 ----------------------
 -- Draw state
 ----------------------
-function Game:draw()
+function StateGame:draw()
 
   Danmaku:draw()
   --Player:draw()
@@ -95,20 +96,20 @@ end
 ----------------------
 -- On mouse press
 ----------------------
-function Game:mousepressed(x,y,button)
+function StateGame:mousepressed(x,y,button)
 end
 
 ----------------------
 -- On keypress
 ----------------------
-function Game:keypressed(key, isrepeat)
+function StateGame:keypressed(key, isrepeat)
 
   if (key == 'escape') then
     love.event.push('quit')
   end
 end
 
-function Game:keyreleased(key, isrepeat)
+function StateGame:keyreleased(key, isrepeat)
 end
 
 GameInstance = StateGame()

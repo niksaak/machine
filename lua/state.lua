@@ -17,8 +17,10 @@ end
 -- Begin state
 ----------------------
 function State:enter()
-  self.was_entered = true
-  self:initialize()
+  if not self.was_entered then
+    self:initialize()
+    self.was_entered = true
+  end
 end
 ----------------------
 -- Initialize state

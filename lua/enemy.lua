@@ -29,10 +29,9 @@ function(self, x, y, xforce, yforce, speed, image)
   self.shape = Collider:addCircle(self.x, self.y, self.hb_r)
   self.shape.body = self
   -- Image
-  print(image)
   self.image = gfx.game.enemies[image]
-  self.image_offx = image:getWidth()/2
-  self.image_offy = image:getHeight()/2  
+  self.image_offx = self.image:getWidth()/2
+  self.image_offy = self.image:getHeight()/2  
 end
 )
 ----------------------
