@@ -8,34 +8,31 @@ require('lua.assets')
 require('lua.danmaku')
 require('lua.player')
 require('lua.bullet')
-require('lua.enemies.cond')
+require('lua.enemies.capacitor')
 HC = require('lua.hadroncollider')
 Timer = require('lua.lib.timer')
-----------------------
--- Game table
-----------------------
-Game = {}
-Game.__index = Game
 
 ----------------------
 -- Construct
 ----------------------
-function Game.create()
+GameState = class(State,
+function (self)
+  State.init(self)
+  self.enemy = nil
+end)
 
-  local game = {}
-  setmetatable(game, Game)
-  game.enemy = Cond(100,20,20)
+----------------------
+-- Begin state
+----------------------
+function State:initialize()
   Danmaku:reset()
   Player:reset()
-  Timer.new()
-  return game
-    
+  self.enemy = Capacitor(100,100,20)
 end
 
 ----------------------
 -- Update state
 ----------------------
-
 function Game:update(dt)
 
   -- Process keyboard input.
@@ -86,19 +83,19 @@ end
 -- Draw state
 ----------------------
 function Game:draw()
+
   Danmaku:draw()
+  --Player:draw()
   for shape in Collider:activeShapes() do
     shape.body:draw()
   end
+  self.enemy:draw()
 end
 
 ----------------------
 -- On mouse press
 ----------------------
 function Game:mousepressed(x,y,button)
-
-  --
-
 end
 
 ----------------------
@@ -114,15 +111,7 @@ end
 function Game:keyreleased(key, isrepeat)
 end
 
-----------------------
--- Collision
-----------------------
-
-function Game:on_collide(dt, shp_a, shp_b, dx, dy)
-  shp_a.body:collide(dt, shp_b.body)
-  shp_b.body:collide(dy, shp_a.body)
-end
-
+GameInstance = StateGame()
 ----------------------
 -- EOF
 ----------------------

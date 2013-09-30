@@ -10,31 +10,31 @@ require('lua.function_lib')
 require('lua.states.title')
 require('lua.player')
 require('lua.lib.class')
-
+HC = require('lua.hadroncollider')
+Timer = require('lua.lib.timer')
 
 ----------------------
 -- Initialise game
 ----------------------
 function love.load()
-
   love.graphics.setMode(800, 600)
-  -- love.keyboard.setKeyRepeat(true)
   Collider = HC(100, on_collide)
-  state = Title.create()
-
+  state = TitleInstance
+  state:enter()
+  Timer.new()
 end
 
-----------------------
--- Solve collisions
-----------------------
 function on_collide(dt, shp_a, shp_b, dx, dy)
-  state:on_collide(dt, shp_a, shp_b, dx, dy)
+  -- print('collide!')
 end
-
 ----------------------
 -- Update game
 ----------------------
 function love.update(dt)
+  Timer.update(dt)
+  if not state.was_eneterd then
+    state:enter()
+  end
   state:update(dt)
 end
 
@@ -71,7 +71,7 @@ end
 -- On key released
 ----------------------
 function love.keyreleased(key, isrepeat)
-  state:keypressed(key, isrepeat)
+  state:keyreleased(key, isrepeat)
 end
 
 ----------------------

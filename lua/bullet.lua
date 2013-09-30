@@ -7,9 +7,6 @@
 
 require('lua.lib.class')
 
-local images = {}
-images["yellow_bullet"] = love.graphics.newImage("gfx/yellow_bullet.png")
-
 ----------------------
 -- Define bullet class
 ----------------------
@@ -31,7 +28,7 @@ function(self, x, y, xforce, yforce, speed, playerp, image)
     Collider:addToGroup('enemy', self.shape)
   end
   -- Image
-  self.image = images[image]
+  self.image = gfx.game.bullets[image]
   self.image_offx = self.image:getWidth()/2
   self.image_offy = self.image:getHeight()/2
 end
@@ -65,13 +62,6 @@ function Bullet:update(dt)
       self.y < Danmaku.y or self.y > Danmaku.y + Danmaku.height) then
      self:die(true)
    end
-end
-
-----------------------
--- Collide bullet
-----------------------
-function Bullet:collide(dt, body)
-  self:die()
 end
 
 ----------------------

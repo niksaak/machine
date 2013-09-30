@@ -2,8 +2,8 @@
 
 all: machine.love
 
-run:
-	love .
+run: machine.love
+	love machine.love
 
 .PHONY: machine.love
 machine.love:

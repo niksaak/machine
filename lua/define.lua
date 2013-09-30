@@ -41,6 +41,15 @@ is_bgm = true
 is_easy = false
 is_normal = false
 is_hard = false
+----------------------
+-- Key shortcuts
+----------------------
+--[[key = {
+  action      = {'z', 'enter', 'space'}
+  bomb        = {'x'}
+  focus       = {'shift'}
+  escape      = {'esc'}
+}]]
 
 ----------------------
 -- EOF
