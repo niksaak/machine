@@ -88,7 +88,6 @@ function StateGame:draw()
   for shape in Collider:activeShapes() do
     shape.body:draw()
   end
-  self.enemy:draw()
 end
 
 ----------------------

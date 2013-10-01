@@ -79,6 +79,7 @@ function Enemy:die(instantp)
     -- TODO: enemy explosion here
   end
   self:afterdeath()
+  self = nil
 end
 
 function Enemy:afterdeath()
