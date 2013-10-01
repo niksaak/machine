@@ -1,7 +1,7 @@
 ----------------------
 -- Game state definiton
 -- version: 0.1
--- date: 2013/09/28
+-- date: 2013/10/01
 -- authors: roxy, niksaak
 ----------------------
 require('lua.assets')
@@ -16,11 +16,7 @@ Timer = require('lua.lib.timer')
 ----------------------
 -- Construct
 ----------------------
-StateGame = class(State,
-function (self)
-  State.init(self)
-  self.enemy = nil
-end)
+StateGame = State()
 
 ----------------------
 -- Begin state
@@ -106,10 +102,12 @@ function StateGame:keypressed(key, isrepeat)
   end
 end
 
+----------------------
+-- On keyrelased
+----------------------
 function StateGame:keyreleased(key, isrepeat)
 end
 
-GameInstance = StateGame()
 
 ----------------------
 -- COLLISION

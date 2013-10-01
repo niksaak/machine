@@ -1,26 +1,18 @@
 ----------------------
 -- StateTitle state definiton
--- version: 0.1
--- date: 2013/09/28
+-- version: 0.3
+-- date: 2013/10/01
 -- authors: roxy, niksaak
 ----------------------
 require('lua.button')
 require('lua.assets')
 require('lua.state')
 require('lua.states.game')
-----------------------
--- StateTitle table
-----------------------
 
 ----------------------
 -- Construct
 ----------------------
-StateTitle = class(State,
-function(self)
-  State.init(self)
-  self.buttons = {}
-  self.hover_num = 1 -- Start game value
-end)
+StateTitle = State()
 
 ----------------------
 -- Initialize state
@@ -32,6 +24,7 @@ function StateTitle:initialize()
   --[[3]]  Button.create("Помощь", 600, 500, 'matricha'),
   --[[4]]  Button.create("Выйти", 600, 550, 'matricha')
   }
+  self.hover_num = 1
 end
 ----------------------
 -- Update state
@@ -97,7 +90,7 @@ function StateTitle:keyreleased(key, isrepeat)
     if b:keyreleased(key, isrepeat) then
       print(n)
       if     n == 1 then
-        state = GameInstance
+        state = StateGame
       elseif n == 2 then
         -- state = ConfigInstance
       elseif n == 3 then
@@ -115,11 +108,6 @@ end
 function StateTitle:on_collide(dt, shp_a, shp_b, dx, dy)
   -- print('collide!')
 end
-
-----------------------
--- Initialize StateTitle state
-----------------------
-TitleInstance = StateTitle()
 
 ----------------------
 -- EOF

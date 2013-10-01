@@ -19,7 +19,7 @@ Timer = require('lua.lib.timer')
 function love.load()
   love.graphics.setMode(800, 600)
   Collider = HC(100, on_collide)
-  state = TitleInstance
+  state = StateTitle
   state:enter()
   Timer.new()
 end
