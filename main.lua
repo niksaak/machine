@@ -25,7 +25,8 @@ function love.load()
 end
 
 function on_collide(dt, shp_a, shp_b, dx, dy)
-  -- print('collide!')
+  state:on_collide(dt, shp_a, shp_b, dx, dy)
+  -- COLLIDE! COLLIDE MOTTERFREAKER!
 end
 ----------------------
 -- Update game

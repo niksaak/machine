@@ -63,7 +63,6 @@ end
 -- Solve collisions
 ----------------------
 function State:on_collide(dt, shp_a, shp_b, dx, dy)
-  -- print('collide!')
 end
 
 ----------------------

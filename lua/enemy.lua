@@ -28,6 +28,7 @@ function(self, x, y, xforce, yforce, speed, image)
   -- Collide
   self.shape = Collider:addCircle(self.x, self.y, self.hb_r)
   self.shape.body = self
+  Collider:addToGroup('enemy', self.shape)
   -- Image
   self.image = gfx.game.enemies[image]
   self.image_offx = self.image:getWidth()/2
@@ -68,11 +69,27 @@ end
 function Enemy:shoot()
 end
 
+----------------------
+-- Enemy dead
+----------------------
 function Enemy:die(instantp)
   Collider:remove(self.shape)
   if (not instantp) then
     -- TODO: enemy explosion here
   end
-  self.x = -1
-  self.y = -1
+  self:afterdeath()
 end
+
+function Enemy:afterdeath()
+end
+
+----------------------
+-- Enemy collisions
+----------------------
+function Enemy:collide(dt, body)
+  self.lives = self.lives - 1
+  if(self.lives < 0) then
+    self:die()
+  end
+end
+

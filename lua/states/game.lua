@@ -72,9 +72,7 @@ function StateGame:update(dt)
   -- Process collisions
   for shape in Collider:activeShapes() do
     -- FIXME: looks dirty
-    if (shape.body.update ~= nil) then
-      shape.body:update(dt)
-    end
+    shape.body:update(dt)
   end
   Collider:update(dt)
   Timer.update(dt)
@@ -113,6 +111,15 @@ function StateGame:keyreleased(key, isrepeat)
 end
 
 GameInstance = StateGame()
+
+----------------------
+-- COLLISION
+----------------------
+function StateGame:on_collide(dt, shp_a, shp_b, dx, dy)
+  shp_a.body:collide(dt, shp_b.body)
+  shp_b.body:collide(dt, shp_a.body)
+end
+
 ----------------------
 -- EOF
 ----------------------

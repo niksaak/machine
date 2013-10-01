@@ -65,6 +65,13 @@ function Bullet:update(dt)
 end
 
 ----------------------
+-- COLLIDE. THE. BULLET.
+----------------------
+function Bullet:collide(dt, body)
+  self:die()
+end
+
+----------------------
 -- Kill bullet
 ----------------------
 function Bullet:die(instantp)

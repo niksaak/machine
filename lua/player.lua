@@ -86,11 +86,19 @@ end
 
 function Player:pichun(instantp)
   Player.lives = Player.lives - 1
-  if(instantp) then
+  if (instantp) then
     return
   else
     -- TODO: cute pichun~ explosion
   end
+end
+
+function Player:collide(dt, body)
+  Player:pichun()
+end
+
+function Player:update(dt)
+  -- Body intentionally left blank
 end
 
 function Player:draw()
