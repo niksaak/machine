@@ -22,6 +22,7 @@ function(self, x, y, xforce, yforce, speed, image)
   self.xforce = xforce
   self.yforce = yforce
   self.speed = speed
+  self.lives = 0
   self.hb_r = 3
   -- State
   self.state = state.ALIVE
