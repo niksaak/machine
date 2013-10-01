@@ -10,6 +10,7 @@ require('lua.player')
 require('lua.bullet')
 require('lua.enemy')
 require('lua.enemies.capacitor')
+require('lua.entity')
 HC = require('lua.hadroncollider')
 Timer = require('lua.lib.timer')
 
@@ -70,9 +71,8 @@ function StateGame:update(dt)
   end
 
   -- Process collisions
-  for shape in Collider:activeShapes() do
-    -- FIXME: looks dirty
-    shape.body:update(dt)
+  for ent in pairs(Entity.list) do
+    ent:update(dt)
   end
   Collider:update(dt)
   Timer.update(dt)
@@ -85,8 +85,8 @@ function StateGame:draw()
 
   Danmaku:draw()
   --Player:draw()
-  for shape in Collider:activeShapes() do
-    shape.body:draw()
+  for ent in pairs(Entity.list) do
+    ent:draw()
   end
 end
 

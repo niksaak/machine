@@ -6,6 +6,7 @@
 ----------------------
 
 require('lua.danmaku')
+require('lua.entity')
 
 Player = {}
 
@@ -39,6 +40,9 @@ function Player:reset()
   Player.bombs = 3 -- bombs left
 
   Player.lives = 2 -- lives left, game over if less than zero
+
+  -- Add to entities table
+  Entity:put(Player)
 end
 
 function Player:move(x, y, dt)
