@@ -5,6 +5,7 @@
 -- author: roxy
 ----------------------
 require('lua.assets')
+require('lua.entity')
 require('lua.lib.class')
 Timer = require('lua.lib.timer')
 ----------------------
@@ -34,6 +35,8 @@ function(self, x, y, xforce, yforce, speed, image)
   self.image = gfx.game.enemies[image]
   self.image_offx = self.image:getWidth()/2
   self.image_offy = self.image:getHeight()/2  
+
+  Entity:put(self)
 end
 )
 ----------------------
@@ -75,6 +78,7 @@ end
 ----------------------
 function Enemy:die(instantp)
   Collider:remove(self.shape)
+  Entity:remove(self)
   if (not instantp) then
     -- TODO: enemy explosion here
   end
