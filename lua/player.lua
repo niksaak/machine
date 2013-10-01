@@ -71,7 +71,7 @@ end
 function Player:shoot(dt)
   if(Player.shoot_timeout <= 0) then
     Player.shoot_timeout = Player.shoot_speed
-    Bullet(Player.x, Player.y, 0, -1, 512, true, 'yellow_bullet')
+    Bullet(Player.x, Player.y, 0, -1, 512, true, 'yellow')
   else
     Player.shoot_timeout = Player.shoot_timeout - dt;
   end
@@ -84,17 +84,21 @@ function Player:bomb(dt)
   end
 end
 
-function Player:collide(dt, body)
-  Player:pichun()
-end
-
 function Player:pichun(instantp)
   Player.lives = Player.lives - 1
-  if(instantp) then
+  if (instantp) then
     return
   else
     -- TODO: cute pichun~ explosion
   end
+end
+
+function Player:collide(dt, body)
+  Player:pichun()
+end
+
+function Player:update(dt)
+  -- Body intentionally left blank
 end
 
 function Player:draw()

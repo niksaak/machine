@@ -15,9 +15,10 @@ sfx = {}
 -- Sound effects
 ----------------------
 sfx.se = {
-    btn_hover   =   ls.newSoundData("sfx/se/btn_hover.ogg"),
-    btn_click   =   ls.newSoundData("sfx/se/btn_click.ogg")
+  btn_hover   =   love.sound.newSoundData("sfx/se/btn_hover.ogg"),
+  btn_click   =   love.sound.newSoundData("sfx/se/btn_click.ogg")
 }
+
 ----------------------
 -- Background music
 ----------------------
@@ -31,17 +32,32 @@ gfx = {}
 -- System graphics
 ----------------------
 gfx.system = {
-    btn_hover = lg.newImage("gfx/system/btn_hover.png")
+  btn_hover = love.graphics.newImage("gfx/system/btn_hover.png")
+}
+----------------------
+-- Game graphics
+----------------------
+gfx.game = {}
+
+----------------------
+-- Bullets
+----------------------
+gfx.game.bullets = {
+  yellow = love.graphics.newImage("gfx/bullets/yellow.png")
+}
+----------------------
+-- Enemies
+----------------------
+gfx.game.enemies = {
+  capacitor = love.graphics.newImage("gfx/enemies/capacitor.png")
 }
 ----------------------
 -- Fonts
 ----------------------
 gfx.font = {
-    matricha = lg.newFont("gfx/font/matricha.ttf", 40)
+  matricha = lg.newFont("gfx/font/matricha.ttf", 40)
 }
-gfx.game = {
-    cond = lg.newImage("gfx/conden.png")
-}
+
 ----------------------
 -- EOF
 ----------------------

@@ -8,35 +8,33 @@ require('lua.assets')
 require('lua.danmaku')
 require('lua.player')
 require('lua.bullet')
-require('lua.enemies.cond')
+require('lua.enemy')
+require('lua.enemies.capacitor')
 HC = require('lua.hadroncollider')
 Timer = require('lua.lib.timer')
-----------------------
--- Game table
-----------------------
-Game = {}
-Game.__index = Game
 
 ----------------------
 -- Construct
 ----------------------
-function Game.create()
+StateGame = class(State,
+function (self)
+  State.init(self)
+  self.enemy = nil
+end)
 
-  local game = {}
-  setmetatable(game, Game)
-  game.enemy = Cond(100,20,20)
+----------------------
+-- Begin state
+----------------------
+function StateGame:initialize()
   Danmaku:reset()
   Player:reset()
-  Timer.new()
-  return game
-    
+  self.enemy = Capacitor(100,100,20)
 end
 
 ----------------------
 -- Update state
 ----------------------
-
-function Game:update(dt)
+function StateGame:update(dt)
 
   -- Process keyboard input.
   -- Warnings:
@@ -74,9 +72,7 @@ function Game:update(dt)
   -- Process collisions
   for shape in Collider:activeShapes() do
     -- FIXME: looks dirty
-    if (shape.body.update ~= nil) then
-      shape.body:update(dt)
-    end
+    shape.body:update(dt)
   end
   Collider:update(dt)
   Timer.update(dt)
@@ -85,8 +81,10 @@ end
 ----------------------
 -- Draw state
 ----------------------
-function Game:draw()
+function StateGame:draw()
+
   Danmaku:draw()
+  --Player:draw()
   for shape in Collider:activeShapes() do
     shape.body:draw()
   end
@@ -95,32 +93,30 @@ end
 ----------------------
 -- On mouse press
 ----------------------
-function Game:mousepressed(x,y,button)
-
-  --
-
+function StateGame:mousepressed(x,y,button)
 end
 
 ----------------------
 -- On keypress
 ----------------------
-function Game:keypressed(key, isrepeat)
+function StateGame:keypressed(key, isrepeat)
 
   if (key == 'escape') then
     love.event.push('quit')
   end
 end
 
-function Game:keyreleased(key, isrepeat)
+function StateGame:keyreleased(key, isrepeat)
 end
 
-----------------------
--- Collision
-----------------------
+GameInstance = StateGame()
 
-function Game:on_collide(dt, shp_a, shp_b, dx, dy)
+----------------------
+-- COLLISION
+----------------------
+function StateGame:on_collide(dt, shp_a, shp_b, dx, dy)
   shp_a.body:collide(dt, shp_b.body)
-  shp_b.body:collide(dy, shp_a.body)
+  shp_b.body:collide(dt, shp_a.body)
 end
 
 ----------------------

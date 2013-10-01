@@ -18,18 +18,19 @@ Button.__index = Button
 ----------------------
 -- Constructor
 ----------------------
-function Button.create(text, x, y)
+function Button.create(text, x, y, font)
 	
 	local data = {}
 	setmetatable(data, Button)
 	data.hover = false
 	data.click = false
 	data.text = text
-	data.width = gfx.font["matricha"]:getWidth(text)
-	data.height = gfx.font["matricha"]:getHeight()
+  data.font = font
+	data.width = gfx.font[font]:getWidth(text)
+	data.height = gfx.font[font]:getHeight()
 	data.x = x - (data.width / 2)
 	data.y = y
-    data.se_played = false
+  data.se_played = false
 	return data
 	
 end
@@ -39,15 +40,15 @@ end
 ----------------------
 function Button:draw()
 	
-	lg.setFont(gfx.font["matricha"])
+	love.graphics.setFont(gfx.font[self.font])
 	
     if self.hover then
-        lg.setColor(unpack(btn_hover_color))
+        love.graphics.setColor(unpack(btn_hover_color))
 	else
-        lg.setColor(unpack(btn_idle_color))
+        love.graphics.setColor(unpack(btn_idle_color))
     end
 	
-    lg.print(self.text, self.x, self.y-self.height)
+    love.graphics.print(self.text, self.x, self.y-self.height)
 	
 end
 
@@ -55,43 +56,37 @@ end
 -- Update a button
 ----------------------
 function Button:update(dt)
-	
-	self.hover = false
-	
-	local x = love.mouse.getX()
-	local y = love.mouse.getY()
-	
-	if x > self.x
-		and x < self.x + self.width
-		and y > self.y - self.height
-		and y < self.y then
-		self.hover = true
-    else
-        self.se_played = false
-	end
-    
-    if not self.se_played and self.hover then
+   
+    if (self.hover and not self.click and not self.se_played) then
         play_se("btn_hover")
         self.se_played = true
+    elseif (not self.hover) then
+      self.se_played = false
     end
 	
 end
 
 ----------------------
--- On press mouse button
+-- On key pressed
 ----------------------
-function Button:mousepressed(x, y, button)
-	
-	if self.hover then
-		if is_sound then
-			play_se("btn_click")
-		end
-		return true
-	end
-	return false
-
+function Button:keypressed(key, isrepeat)
 end
 
+----------------------
+-- On key released
+----------------------
+function Button:keyreleased(key, isrepeat)
+  if (key == 'return' and self.hover) then
+    self.click = true
+    play_se("btn_click")
+    return true
+  else
+    return false
+  end
+end
+function Button:set_hover(val)
+  self.hover = val
+end
 ----------------------
 -- EOF
 ----------------------

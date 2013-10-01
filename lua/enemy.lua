@@ -4,7 +4,7 @@
 -- date: 2013/09/29
 -- author: roxy
 ----------------------
-
+require('lua.assets')
 require('lua.lib.class')
 Timer = require('lua.lib.timer')
 ----------------------
@@ -15,14 +15,14 @@ local state = {ALIVE = 1, DEAD = 2}
 -- Define enemy class
 ----------------------
 Enemy = class(
-function(self, x, y, xforce, yforce, speed, lives, image)
+function(self, x, y, xforce, yforce, speed, image)
   -- Init
   self.x = x + Danmaku.x
   self.y = y + Danmaku.y
   self.xforce = xforce
   self.yforce = yforce
   self.speed = speed
-  self.lives = lives
+  self.lives = 0
   self.hb_r = 3
   -- State
   self.state = state.ALIVE
@@ -31,12 +31,9 @@ function(self, x, y, xforce, yforce, speed, lives, image)
   self.shape.body = self
   Collider:addToGroup('enemy', self.shape)
   -- Image
-  self.image = image
-  self.image_offx = image:getWidth()/2
-  self.image_offy = image:getHeight()/2
-  -- Contain
-  self.bullets = {}
-  
+  self.image = gfx.game.enemies[image]
+  self.image_offx = self.image:getWidth()/2
+  self.image_offy = self.image:getHeight()/2  
 end
 )
 ----------------------
@@ -86,18 +83,15 @@ function Enemy:die(instantp)
 end
 
 function Enemy:afterdeath()
-  -- redefine this for child classes which need further deinitialization
 end
 
 ----------------------
 -- Enemy collisions
 ----------------------
 function Enemy:collide(dt, body)
-
   self.lives = self.lives - 1
-  if (self.lives < 0) then
+  if(self.lives < 0) then
     self:die()
   end
-
 end
 
