@@ -1,7 +1,7 @@
 ----------------------
 -- Game state definiton
 -- version: 0.1
--- date: 2013/09/28
+-- date: 2013/10/01
 -- authors: roxy, niksaak
 ----------------------
 require('lua.assets')
@@ -10,22 +10,20 @@ require('lua.player')
 require('lua.bullet')
 require('lua.enemy')
 require('lua.enemies.capacitor')
+require('lua.entity')
 HC = require('lua.hadroncollider')
 Timer = require('lua.lib.timer')
 
 ----------------------
 -- Construct
 ----------------------
-StateGame = class(State,
-function (self)
-  State.init(self)
-  self.enemy = nil
-end)
+StateGame = State()
 
 ----------------------
 -- Begin state
 ----------------------
 function StateGame:initialize()
+  Entity:clear()
   Danmaku:reset()
   Player:reset()
   self.enemy = Capacitor(100,100,20)
@@ -70,9 +68,8 @@ function StateGame:update(dt)
   end
 
   -- Process collisions
-  for shape in Collider:activeShapes() do
-    -- FIXME: looks dirty
-    shape.body:update(dt)
+  for ent in pairs(Entity.list) do
+    ent:update(dt)
   end
   Collider:update(dt)
   Timer.update(dt)
@@ -85,8 +82,8 @@ function StateGame:draw()
 
   Danmaku:draw()
   --Player:draw()
-  for shape in Collider:activeShapes() do
-    shape.body:draw()
+  for ent in pairs(Entity.list) do
+    ent:draw()
   end
 end
 
@@ -106,10 +103,12 @@ function StateGame:keypressed(key, isrepeat)
   end
 end
 
+----------------------
+-- On keyrelased
+----------------------
 function StateGame:keyreleased(key, isrepeat)
 end
 
-GameInstance = StateGame()
 
 ----------------------
 -- COLLISION
