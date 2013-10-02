@@ -11,6 +11,7 @@ require('lua.bullet')
 require('lua.enemy')
 require('lua.enemies.capacitor')
 require('lua.entity')
+require('lua.emitter')
 HC = require('lua.hadroncollider')
 Timer = require('lua.lib.timer')
 
