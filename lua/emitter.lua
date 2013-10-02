@@ -3,17 +3,11 @@
 -- author: niksaak
 ----------------------
 
-Emitters = {}
-
-function Emitters:update(dt)
-  for e in pairs(Emitters) do
-    e:update(dt)
-  end
-end
+require('lua.entity')
 
 Emitter = class(
 function(self, x, y, xforce, yforce, speed, playerp)
-  emitter[self] = self
+  Entity.list[self] = self
   self.x = x
   self.y = y
   self.xforce = xforce
@@ -45,6 +39,9 @@ function Emitter:update(dt)
 end
 
 function Emitter:die()
-  emitters[self] = nil
+  Entity[self] = nil
+end
+
+function Entity:draw()
 end
 
