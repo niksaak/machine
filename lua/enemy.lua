@@ -75,7 +75,7 @@ end
 ----------------------
 function Enemy:die(instantp)
   Collider:remove(self.shape)
-  Entity:remove(self)
+  EntList:remove(self)
   if (not instantp) then
     -- TODO: enemy explosion here
   end

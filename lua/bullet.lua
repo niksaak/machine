@@ -76,7 +76,7 @@ end
 ----------------------
 function Bullet:die(instantp)
   Collider:remove(self.shape)
-  Entity:remove(self)
+  EntList:remove(self)
   if (not instantp) then
     -- TODO: cute bullet explosion here
   end

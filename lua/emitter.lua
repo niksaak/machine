@@ -37,7 +37,7 @@ function Emitter:update(dt)
 end
 
 function Emitter:die()
-  Entity[self] = nil
+  EntList.remove(self)
 end
 
 function Entity:draw()
