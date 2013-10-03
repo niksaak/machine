@@ -15,11 +15,10 @@ local state = {ALIVE = 1, DEAD = 2}
 ----------------------
 -- Define enemy class
 ----------------------
-Enemy = class(
+Enemy = class(Entity,
 function(self, x, y, xforce, yforce, speed, image)
   -- Init
-  self.x = x + Danmaku.x
-  self.y = y + Danmaku.y
+  Entity.init(self, x, y)
   self.xforce = xforce
   self.yforce = yforce
   self.speed = speed
@@ -35,8 +34,6 @@ function(self, x, y, xforce, yforce, speed, image)
   self.image = gfx.game.enemies[image]
   self.image_offx = self.image:getWidth()/2
   self.image_offy = self.image:getHeight()/2  
-
-  Entity:put(self)
 end
 )
 ----------------------
