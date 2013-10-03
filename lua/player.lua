@@ -42,7 +42,7 @@ function Player:reset()
   Player.lives = 2 -- lives left, game over if less than zero
 
   -- Add to entities table
-  Entity:put(Player)
+  EntList:put(Player)
 end
 
 function Player:move(x, y, dt)

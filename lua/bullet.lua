@@ -11,11 +11,10 @@ require('lua.lib.class')
 ----------------------
 -- Define bullet class
 ----------------------
-Bullet = class(
+Bullet = class(Entity,
 function(self, x, y, xforce, yforce, speed, playerp, image)
   -- Init
-  self.x = x
-  self.y = y
+  Entity.init(self, x, y)
   self.xforce = xforce
   self.yforce = yforce
   self.speed = speed
@@ -32,9 +31,6 @@ function(self, x, y, xforce, yforce, speed, playerp, image)
   self.image = gfx.game.bullets[image]
   self.image_offx = self.image:getWidth()/2
   self.image_offy = self.image:getHeight()/2
-
-  -- Put
-  Entity:put(self)
 end
 )
 
@@ -80,7 +76,7 @@ end
 ----------------------
 function Bullet:die(instantp)
   Collider:remove(self.shape)
-  Entity:remove(self)
+  EntList:remove(self)
   if (not instantp) then
     -- TODO: cute bullet explosion here
   end

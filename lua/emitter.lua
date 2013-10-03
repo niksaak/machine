@@ -5,11 +5,9 @@
 
 require('lua.entity')
 
-Emitter = class(
+Emitter = class(Entity,
 function(self, x, y, xforce, yforce, speed, playerp)
-  Entity.list[self] = self
-  self.x = x
-  self.y = y
+  Entity.init(self, x, y)
   self.xforce = xforce
   self.yforce = yforce
   self.speed = speed
@@ -39,7 +37,7 @@ function Emitter:update(dt)
 end
 
 function Emitter:die()
-  Entity[self] = nil
+  EntList.remove(self)
 end
 
 function Entity:draw()

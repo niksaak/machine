@@ -24,7 +24,7 @@ StateGame = State()
 -- Begin state
 ----------------------
 function StateGame:initialize()
-  Entity:clear()
+  EntList:clear()
   Danmaku:reset()
   Player:reset()
   self.enemy = Capacitor(100,100,20)
