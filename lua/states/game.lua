@@ -69,7 +69,9 @@ function StateGame:update(dt)
   if(kbd.isDown('lshift')) then
     Danmaku.focus_mode = true
   end
-  for ent in pairs(Entity.list) do
+
+  -- Update entities
+  for ent in pairs(EntList.list) do
     ent:update(dt)
   end
   Collider:update(dt)
@@ -83,8 +85,8 @@ function StateGame:draw()
 
   Danmaku:draw()
   --Player:draw()
-  for shape in Collider:activeShapes() do
-    shape.body:draw()
+  for ent in pairs(EntList.list) do
+    ent:draw()
   end
 end
 
