@@ -6,11 +6,8 @@
 ----------------------
 
 require('lua.danmaku')
-<<<<<<< HEAD
 require('lua.entity')
-=======
 
->>>>>>> 99e8f7b8387b29d14f1f8d409106fabbbe528550
 Player = {}
 
 function Player:reset()
