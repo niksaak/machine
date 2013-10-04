@@ -43,13 +43,8 @@ function Player:reset()
   Player.bombs = 3 -- bombs left
 
   Player.lives = 2 -- lives left, game over if less than zero
-<<<<<<< HEAD
-  
   -- Add to entities table
   EntList:put(Player)
-
-=======
->>>>>>> 99e8f7b8387b29d14f1f8d409106fabbbe528550
 end
 
 function Player:move(x, y, dt)

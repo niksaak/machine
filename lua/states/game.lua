@@ -10,12 +10,8 @@ require('lua.player')
 require('lua.bullet')
 require('lua.enemy')
 require('lua.enemies.capacitor')
-<<<<<<< HEAD
 require('lua.entity')
 require('lua.emitter')
-
-=======
->>>>>>> 99e8f7b8387b29d14f1f8d409106fabbbe528550
 HC = require('lua.hadroncollider')
 Timer = require('lua.lib.timer')
 
@@ -28,6 +24,7 @@ StateGame = State()
 -- Begin state
 ----------------------
 function StateGame:initialize()
+  EntList:clear()
   Danmaku:reset()
   Player:reset()
   self.enemy = Capacitor(100,100,20)
@@ -72,16 +69,8 @@ function StateGame:update(dt)
   if(kbd.isDown('lshift')) then
     Danmaku.focus_mode = true
   end
-<<<<<<< HEAD
   for ent in pairs(Entity.list) do
     ent:update(dt)
-=======
-
-  -- Process collisions
-  for shape in Collider:activeShapes() do
-    -- FIXME: looks dirty
-    shape.body:update(dt)
->>>>>>> 99e8f7b8387b29d14f1f8d409106fabbbe528550
   end
   Collider:update(dt)
   Timer.update(dt)
