@@ -30,8 +30,8 @@ function Player:reset()
   Collider:addToGroup('player', Player.shape)
 
   -- Speed
-  Player.speed = 256 -- movement speed
-  Player.focus_speed = 128
+  Player.speed = 384 -- movement speed
+  Player.focus_speed = 192
 
   Player.shoot_speed = 1 / 9 -- fire 9 bullets per second
     -- interval between shoots in sec, the less the faster
@@ -40,7 +40,6 @@ function Player:reset()
   Player.bombs = 3 -- bombs left
 
   Player.lives = 2 -- lives left, game over if less than zero
-
   -- Add to entities table
   EntList:put(Player)
 end
@@ -53,6 +52,13 @@ function Player:move(x, y, dt)
   else
     speed = Player.speed
   end
+  -- Get move shift speed
+  if x~=0 and y~=0 then
+    local vec = math.sqrt(x*x + y*y)
+    x = x/vec
+    y = y/vec
+  end
+
   local newx = Player.x + (x * speed * dt)
   local newy = Player.y + (y * speed * dt)
   local max_x = Danmaku.x + Danmaku.width
@@ -60,6 +66,7 @@ function Player:move(x, y, dt)
   local max_y = Danmaku.y + Danmaku.height
   local min_y = Danmaku.y
 
+  -- check collision with field bordets manually because FIXME
   if (newx > max_x or newx < min_x) then
     newx = Player.x
   end
@@ -93,6 +100,7 @@ function Player:pichun(instantp)
   if (instantp) then
     return
   else
+    print("YOU DIED")
     -- TODO: cute pichun~ explosion
   end
 end
