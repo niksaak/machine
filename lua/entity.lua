@@ -3,17 +3,22 @@
 ----------------------
 
 EntList = {}
+EntList.list = {}
 
 function EntList:put(entity)
-  Entity.list[entity] = entity
+  EntList.list[entity] = entity
+end
+
+function EntList:get(entity)
+  return EntList.list[entity]
 end
 
 function EntList:remove(entity)
-  Entity.list[entity] = nil
+  EntList.list[entity] = nil
 end
 
 function EntList:clear()
-  Entity.list = {}
+  EntList.list = {}
 end
 
 Entity = class(
