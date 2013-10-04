@@ -47,8 +47,6 @@ end
 function Player:move(x, y, dt)
   -- Move player by x and y, multiplied by dt and player speed
   local speed = 0
-  local x_dir = 0 -- 45 degerees cross directions
-  local y_dir = 0
   if (Danmaku.focus_mode) then
     speed = Player.focus_speed
   else
@@ -68,6 +66,7 @@ function Player:move(x, y, dt)
   local max_y = Danmaku.y + Danmaku.height
   local min_y = Danmaku.y
 
+  -- check collision with field bordets manually because FIXME
   if (newx > max_x or newx < min_x) then
     newx = Player.x
   end
