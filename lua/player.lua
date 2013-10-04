@@ -6,7 +6,6 @@
 ----------------------
 
 require('lua.danmaku')
-require('lua.entity')
 
 Player = {}
 
@@ -40,19 +39,25 @@ function Player:reset()
   Player.bombs = 3 -- bombs left
 
   Player.lives = 2 -- lives left, game over if less than zero
-
-  -- Add to entities table
-  EntList:put(Player)
 end
 
 function Player:move(x, y, dt)
   -- Move player by x and y, multiplied by dt and player speed
   local speed = 0
+  local x_dir = 0 -- 45 degerees cross directions
+  local y_dir = 0
   if (Danmaku.focus_mode) then
     speed = Player.focus_speed
   else
     speed = Player.speed
   end
+  -- Get move shift speed
+  if x~=0 and y~=0 then
+    local vec = math.sqrt(x*x + y*y)
+    x = x/vec
+    y = y/vec
+  end
+
   local newx = Player.x + (x * speed * dt)
   local newy = Player.y + (y * speed * dt)
   local max_x = Danmaku.x + Danmaku.width
@@ -93,6 +98,7 @@ function Player:pichun(instantp)
   if (instantp) then
     return
   else
+    print("YOU DIED")
     -- TODO: cute pichun~ explosion
   end
 end

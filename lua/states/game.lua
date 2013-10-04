@@ -10,8 +10,6 @@ require('lua.player')
 require('lua.bullet')
 require('lua.enemy')
 require('lua.enemies.capacitor')
-require('lua.entity')
-require('lua.emitter')
 HC = require('lua.hadroncollider')
 Timer = require('lua.lib.timer')
 
@@ -24,7 +22,6 @@ StateGame = State()
 -- Begin state
 ----------------------
 function StateGame:initialize()
-  EntList:clear()
   Danmaku:reset()
   Player:reset()
   self.enemy = Capacitor(100,100,20)
@@ -42,21 +39,23 @@ function StateGame:update(dt)
   -- + Do not implement it with elseifs - player need to be able to move in
   --   more than one directions at onse.
   local kbd = love.keyboard
-
+  local vec = {}
+  vec[0] = 0; vec[1] = 0
   -- Moving
   if (kbd.isDown('up')) then
-    Player:move(0, -1, dt)
+    vec[1] = -1
   end
   if (kbd.isDown('down')) then
-    Player:move(0, 1, dt)
+    vec [1] = 1
   end
   if (kbd.isDown('left')) then
-    Player:move(-1, 0, dt)
+    vec [0] = -1
   end
   if (kbd.isDown('right')) then
-    Player:move(1, 0, dt)
+    vec [0] = 1
   end
-
+  
+  Player:move(vec[0], vec[1], dt)
   -- Shooting LIKE A ROSE
   if (kbd.isDown('z')) then
     Player:shoot(dt)
@@ -69,8 +68,9 @@ function StateGame:update(dt)
   end
 
   -- Process collisions
-  for ent in pairs(Entity.list) do
-    ent:update(dt)
+  for shape in Collider:activeShapes() do
+    -- FIXME: looks dirty
+    shape.body:update(dt)
   end
   Collider:update(dt)
   Timer.update(dt)
@@ -83,8 +83,8 @@ function StateGame:draw()
 
   Danmaku:draw()
   --Player:draw()
-  for ent in pairs(Entity.list) do
-    ent:draw()
+  for shape in Collider:activeShapes() do
+    shape.body:draw()
   end
 end
 
