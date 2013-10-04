@@ -30,8 +30,8 @@ function Player:reset()
   Collider:addToGroup('player', Player.shape)
 
   -- Speed
-  Player.speed = 256 -- movement speed
-  Player.focus_speed = 128
+  Player.speed = 384 -- movement speed
+  Player.focus_speed = 192
 
   Player.shoot_speed = 1 / 9 -- fire 9 bullets per second
     -- interval between shoots in sec, the less the faster
