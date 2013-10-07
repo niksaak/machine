@@ -27,6 +27,7 @@ function(self, x, y, xforce, yforce, speed, playerp, image)
   else
     Collider:addToGroup('enemy', self.shape)
   end
+  Collider:setPassive(self.shape)
   -- Image
   self.image = gfx.game.bullets[image]
   self.image_offx = self.image:getWidth()/2
