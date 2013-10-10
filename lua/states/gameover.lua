@@ -1,35 +1,35 @@
 ----------------------
--- StateTitle state definiton
--- version: 0.3
--- date: 2013/10/01
--- authors: roxy, niksaak
+-- StateGameover state definiton
+-- version: 0.1
+-- date: 2013/10/05
+-- authors: roxy
 ----------------------
 require('lua.button')
 require('lua.assets')
 require('lua.state')
-require('lua.state_list')
 
 ----------------------
 -- Construct
 ----------------------
-StateTitle = State()
+StateGameover = State()
 
 ----------------------
 -- Initialize state
 ----------------------
-function StateTitle:initialize()
+function StateGameover:initialize()
+  print('initgameover')
   self.buttons = { -- Buttons array
-  --[[1]]  Button.create("Начать", 600, 400, 'matricha', true),
-  --[[2]]  Button.create("Настроить", 600, 450, 'matricha', true),
-  --[[3]]  Button.create("Помощь", 600, 500, 'matricha', true),
-  --[[4]]  Button.create("Выйти", 600, 550, 'matricha', true)
+  --[[1]]  Button.create("Заново", 50, 300, 'matricha', false),
+  --[[2]]  Button.create("Настроить[x]", 50, 350, 'matricha', false),
+  --[[3]]  Button.create("Помощь[x]", 50, 400, 'matricha', false),
+  --[[4]]  Button.create("Выйти", 50, 450, 'matricha', false)
   }
   self.hover_num = 1
 end
 ----------------------
 -- Update state
 ----------------------
-function StateTitle:update(dt)
+function StateGameover:update(dt)
   Timer.update(dt)
   for n,btn in pairs(self.buttons) do
 		btn:update(dt)
@@ -49,8 +49,9 @@ end
 ----------------------
 -- Draw state
 ----------------------
-function StateTitle:draw()
-
+function StateGameover:draw()
+  love.graphics.setColor(255,255,0)
+  love.graphics.print("ВЫ, ЭТО, УМЕРЛИ. ПОЗДРАВЛЯЕМ.", 100, 50)
   for n,btn in pairs(self.buttons) do
 		btn:draw()
 	end
@@ -60,23 +61,23 @@ end
 ----------------------
 -- On mouse press
 ----------------------
-function StateTitle:mousepressed(x,y,button)
+function StateGameover:mousepressed(x,y,button)
 
 end
 
 ----------------------
 -- Keypress
 ----------------------
-
-function StateTitle:keypressed(key, isrepeat)
+function StateGameover:keypressed(key, isrepeat)
   if (key == 'escape') then
     quit()
   end
 end
+
 ----------------------
 -- Keyreleased
 ----------------------
-function StateTitle:keyreleased(key, isrepeat)
+function StateGameover:keyreleased(key, isrepeat)
   -- Change button
   --print(key,isrepeat)
   if (key == 'left' or key == 'up') then
@@ -90,7 +91,7 @@ function StateTitle:keyreleased(key, isrepeat)
     if b:keyreleased(key, isrepeat) then
       print(n)
       if     n == 1 then
-        StateList:switch(StateGame)
+        -- Refresh game
       elseif n == 2 then
         -- state = ConfigInstance
       elseif n == 3 then
@@ -105,7 +106,7 @@ end
 ----------------------
 -- Solve collisions
 ----------------------
-function StateTitle:on_collide(dt, shp_a, shp_b, dx, dy)
+function StateGameover:on_collide(dt, shp_a, shp_b, dx, dy)
   -- print('collide!')
 end
 
