@@ -34,7 +34,7 @@ end
 -- Update state
 ----------------------
 function StateGame:update(dt)
-
+  --
   -- Process keyboard input.
   -- Warnings:
   -- + Do not move it to key(press|release) callbacks - default keyrepeat is
@@ -76,6 +76,12 @@ function StateGame:update(dt)
   end
   Collider:update(dt)
   Timer.update(dt)
+  
+    --! GAMEOVER !
+  if Player.lives <= 0 then
+    StateList:switch(StateGameover)
+    return
+  end
 end
 
 ----------------------

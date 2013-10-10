@@ -18,7 +18,7 @@ Button.__index = Button
 ----------------------
 -- Constructor
 ----------------------
-function Button.create(text, x, y, font)
+function Button.create(text, x, y, font, centred)
 	
 	local data = {}
 	setmetatable(data, Button)
@@ -28,7 +28,11 @@ function Button.create(text, x, y, font)
   data.font = font
 	data.width = gfx.font[font]:getWidth(text)
 	data.height = gfx.font[font]:getHeight()
-	data.x = x - (data.width / 2)
+  if centred then
+    data.x = x - (data.width / 2)
+  else
+    data.x = x
+  end
 	data.y = y
   data.se_played = false
 	return data
