@@ -1,96 +1,56 @@
 ----------------------
--- Button definiton
--- version: 0.1
--- date: 2013/09/28
+-- Buttons and button lists
 -- author: roxy
 ----------------------
 
-require('lua.define')
-require('lua.assets')
-require('lua.function_lib')
+Button = class(
+function(self, x, y, text, font)
+  -- create new button at (x;y), with text displayed with font.
+end)
 
-----------------------
--- Button table
-----------------------
-Button = {}
-Button.__index = Button
-
-----------------------
--- Constructor
-----------------------
-function Button.create(text, x, y, font, centred)
-	
-	local data = {}
-	setmetatable(data, Button)
-	data.hover = false
-	data.click = false
-	data.text = text
-  data.font = font
-	data.width = gfx.font[font]:getWidth(text)
-	data.height = gfx.font[font]:getHeight()
-  if centred then
-    data.x = x - (data.width / 2)
-  else
-    data.x = x
-  end
-	data.y = y
-  data.se_played = false
-	return data
-	
-end
-
-----------------------
--- Draw a button
-----------------------
-function Button:draw()
-	
-	love.graphics.setFont(gfx.font[self.font])
-	
-    if self.hover then
-        love.graphics.setColor(unpack(btn_hover_color))
-	else
-        love.graphics.setColor(unpack(btn_idle_color))
-    end
-	
-    love.graphics.print(self.text, self.x, self.y-self.height)
-	
-end
-
-----------------------
--- Update a button
-----------------------
 function Button:update(dt)
-   
-    if (self.hover and not self.click and not self.se_played) then
-        play_se("btn_hover")
-        self.se_played = true
-    elseif (not self.hover) then
-      self.se_played = false
-    end
-	
+  -- update the button
 end
 
-----------------------
--- On key pressed
-----------------------
-function Button:keypressed(key, isrepeat)
+function Button:draw()
+  -- draw the button.
 end
 
-----------------------
--- On key released
-----------------------
-function Button:keyreleased(key, isrepeat)
-  if (key == 'return' and self.hover) then
-    self.click = true
-    play_se("btn_click")
-    return true
-  else
-    return false
-  end
+function Button:hover(b)
+  -- called when button becomes hovered (with b == true)
+  -- or unhovered (with b == false).
+  -- Put your sound effects and funny particle explosions here.
 end
-function Button:set_hover(val)
-  self.hover = val
+
+function Button:activate(releasedp)
+  -- called when button becomes pressed (releasedp == false)
+  -- or released (== true).
+  -- Funny particles here also.
 end
-----------------------
--- EOF
-----------------------
+
+
+ButtonList = class(
+function(self, ...)
+  -- with vararglist containing the buttons which will be added to list
+end)
+
+function ButtonList:appendButton(button)
+  -- add new button to ButtonList
+end
+
+function ButtonList:hover(n)
+  -- hover the button indexed by n in list
+end
+
+function ButtonList:hoverNext()
+  -- hover the button following currently hovered in list
+end
+
+function ButtonList:hoverPrevious()
+  -- hover previous button
+end
+
+function ButtonList:pressCurrent(releasedp)
+  -- press currently hovered button
+end
+
