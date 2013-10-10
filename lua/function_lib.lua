@@ -5,7 +5,7 @@
 -- author: roxy
 ----------------------
 require('lua.define')
-require('lua.TEsound')
+require('lua.lib.TEsound')
 ----------------------
 -- Set clear color
 ----------------------
