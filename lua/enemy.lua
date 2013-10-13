@@ -16,7 +16,7 @@ local state = {ALIVE = 1, DEAD = 2}
 -- Define enemy class
 ----------------------
 Enemy = class(Entity,
-function(self, x, y, xforce, yforce, speed, image)
+function(self, x, y, xforce, yforce, speed, image, event)
   -- Init
   Entity.init(self, x, y)
   self.xforce = xforce
@@ -26,6 +26,8 @@ function(self, x, y, xforce, yforce, speed, image)
   self.hb_r = 3
   -- State
   self.state = state.ALIVE
+  -- Event
+  self.event = event
   -- Collide
   self.shape = Collider:addCircle(self.x, self.y, self.hb_r)
   self.shape.body = self
