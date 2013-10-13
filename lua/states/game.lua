@@ -12,6 +12,7 @@ require('lua.enemy')
 require('lua.enemies.capacitor')
 require('lua.entity')
 require('lua.emitter')
+require('lua.levels.level-1')
 HC = require('lua.hadroncollider')
 Timer = require('lua.lib.timer')
 
@@ -27,7 +28,7 @@ function StateGame:initialize()
   EntList:clear()
   Danmaku:reset()
   Player:reset()
-  self.enemy = Capacitor(100,100,20)
+  self.level = Level1()
 end
 
 ----------------------
@@ -76,6 +77,7 @@ function StateGame:update(dt)
   end
   Collider:update(dt)
   Timer.update(dt)
+  self.level:update()
 end
 
 ----------------------
