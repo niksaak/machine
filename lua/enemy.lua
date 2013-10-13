@@ -33,7 +33,9 @@ function(self, x, y, xforce, yforce, speed, image, event)
   self.shape.body = self
   Collider:addToGroup('enemy', self.shape)
   -- Image
+  print("creating enemy with image", image)
   self.image = gfx.game.enemies[image]
+  assert(self.image ~= nil)
   self.image_offx = self.image:getWidth()/2
   self.image_offy = self.image:getHeight()/2  
 end
@@ -86,6 +88,10 @@ function Enemy:die(instantp)
 end
 
 function Enemy:afterdeath()
+end
+
+function Enemy:deadp()
+  return self.lives < 0
 end
 
 ----------------------
