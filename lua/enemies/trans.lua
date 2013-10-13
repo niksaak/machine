@@ -9,7 +9,9 @@ end)
 function Trans:shoot()
   for i = 0,6 do
     if i%2 == 0 then
-    Bullet(self.x+i*2, self.y, 0, 1 + i/10, 80-1, false, 'yellow_bullet')
+      Bullet(self.x+i*2, self.y, 0, 1 + i/10, 80-1, false, 'yellow')
+    end
   end
   Timer.add(1.2, function() self:shoot() end)
 end
+
