@@ -16,7 +16,7 @@ local state = {ALIVE = 1, DEAD = 2}
 -- Define enemy class
 ----------------------
 Enemy = class(Entity,
-function(self, x, y, xforce, yforce, speed, image)
+function(self, x, y, xforce, yforce, speed, image, event)
   -- Init
   Entity.init(self, x, y)
   self.xforce = xforce
@@ -26,12 +26,16 @@ function(self, x, y, xforce, yforce, speed, image)
   self.hb_r = 3
   -- State
   self.state = state.ALIVE
+  -- Event
+  self.event = event
   -- Collide
   self.shape = Collider:addCircle(self.x, self.y, self.hb_r)
   self.shape.body = self
   Collider:addToGroup('enemy', self.shape)
   -- Image
+  print("creating enemy with image", image)
   self.image = gfx.game.enemies[image]
+  assert(self.image ~= nil)
   self.image_offx = self.image:getWidth()/2
   self.image_offy = self.image:getHeight()/2  
 end
@@ -84,6 +88,10 @@ function Enemy:die(instantp)
 end
 
 function Enemy:afterdeath()
+end
+
+function Enemy:deadp()
+  return self.lives < 0
 end
 
 ----------------------

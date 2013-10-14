@@ -12,6 +12,7 @@ require('lua.enemy')
 require('lua.enemies.capacitor')
 require('lua.entity')
 require('lua.emitter')
+require('lua.levels.level-1')
 HC = require('lua.hadroncollider')
 Timer = require('lua.lib.timer')
 
@@ -27,14 +28,13 @@ function StateGame:initialize()
   EntList:clear()
   Danmaku:reset()
   Player:reset()
-  self.enemy = Capacitor(100,100,20)
+  self.level = Level1()
 end
 
 ----------------------
 -- Update state
 ----------------------
 function StateGame:update(dt)
-  --
   -- Process keyboard input.
   -- Warnings:
   -- + Do not move it to key(press|release) callbacks - default keyrepeat is
@@ -59,6 +59,7 @@ function StateGame:update(dt)
   end
   
   Player:move(vec[0], vec[1], dt)
+
   -- Shooting LIKE A ROSE
   if (kbd.isDown('z')) then
     Player:shoot(dt)
@@ -74,10 +75,17 @@ function StateGame:update(dt)
   for ent in pairs(EntList.list) do
     ent:update(dt)
   end
+
+  -- Update collisions and timers
   Collider:update(dt)
   Timer.update(dt)
-  
-    --! GAMEOVER !
+
+  -- Update current level events
+  if self.level:update() then
+    print("YOU WON THE GAME") -- TODO: EndGame state here
+  end
+
+  -- GAMEOVER
   if Player.lives <= 0 then
     StateList:switch(StateGameover)
     return

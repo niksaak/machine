@@ -21,6 +21,7 @@ function EntList:clear()
   EntList.list = {}
 end
 
+
 Entity = class(
 function(self, x, y)
   self.x = x
