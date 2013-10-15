@@ -82,7 +82,7 @@ end
 function Player:shoot(dt)
   if(Player.shoot_timeout <= 0) then
     Player.shoot_timeout = Player.shoot_speed
-    Bullet(Player.x, Player.y, 0, -1, 512, true, 'yellow')
+    Bullet(Player:getx(), Player:gety(), 0, -1, 512, true, 'yellow')
   else
     Player.shoot_timeout = Player.shoot_timeout - dt;
   end

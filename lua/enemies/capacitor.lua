@@ -9,7 +9,7 @@ end)
 
 function Capacitor:shoot()
   for i=0,4 do
-    Bullet(self.x, self.y, 0, 1 + i/10, 80, false, 'yellow')
+    Bullet(self:getx(), self:gety(), 0, 1 + i/10, 80, false, 'yellow')
   end
   self.t = Timer.add(1.2, function() self:shoot() end)
 end
