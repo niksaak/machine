@@ -59,8 +59,8 @@ function Bullet:update(dt)
   self.shape:moveTo(newx, newy)
 
   -- Kill bullet if it is out of boundaries
-  if (self.getx() < 0 or self.getx() > Danmaku.width or
-      self.gety() < 0 or self.gety() > Danmaku.height) then
+  if (self:getx() < 0 or self:getx() > Danmaku.width or
+      self:gety() < 0 or self:gety() > Danmaku.height) then
      self:die(true)
    end
 end
