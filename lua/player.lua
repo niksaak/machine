@@ -109,6 +109,14 @@ function Player:collide(dt, body)
   Player:pichun()
 end
 
+function Player:getx()
+  return Player.x - Danmaku.x
+end
+
+function Player:gety()
+  return Player.y - Danmaku.y
+end
+
 function Player:update(dt)
   -- Body intentionally left blank
 end
