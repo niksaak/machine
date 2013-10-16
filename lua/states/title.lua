@@ -4,7 +4,8 @@
 -- date: 2013/10/01
 -- authors: roxy, niksaak
 ----------------------
-require('lua.button')
+require('lua.gui.button')
+require('lua.gui.button_list')
 require('lua.assets')
 require('lua.state')
 require('lua.state_list')
@@ -18,50 +19,34 @@ StateTitle = State()
 -- Initialize state
 ----------------------
 function StateTitle:initialize()
-  self.buttons = { -- Buttons array
-  --[[1]]  Button.create("Начать", 600, 400, 'matricha', true),
-  --[[2]]  Button.create("Настроить", 600, 450, 'matricha', true),
-  --[[3]]  Button.create("Помощь", 600, 500, 'matricha', true),
-  --[[4]]  Button.create("Выйти", 600, 550, 'matricha', true)
-  }
-  self.hover_num = 1
+  self.buttons = ButtonList()
+  self.buttons:add(1,Button("Начать", 500, 300, 'matricha',
+    function () StateList:switch(StateGame) end))
+  self.buttons:add(2,Button("Настроить", 500, 350, 'matricha'))
+  self.buttons:add(3,Button("Помощь", 500, 400, 'matricha'))
+  self.buttons:add(4,Button("Выйти", 500, 450, 'matricha',
+    function() quit() end))
+  self.buttons:check()
 end
+-- appendix to initialize:
 ----------------------
 -- Update state
 ----------------------
 function StateTitle:update(dt)
   Timer.update(dt)
-  for n,btn in pairs(self.buttons) do
-		btn:update(dt)
-    if n == self.hover_num then
-      btn:set_hover(true)
-    else
-      btn:set_hover(false)
-    end
-	end
-  if (self.hover_num > table.getn(self.buttons) ) then
-    self.hover_num = 1
-  elseif ( self.hover_num < 1 ) then
-    self.hover_num = table.getn(self.buttons)
-  end
 end
 
 ----------------------
 -- Draw state
 ----------------------
 function StateTitle:draw()
-
-  for n,btn in pairs(self.buttons) do
-		btn:draw()
-	end
-
+  self.buttons:draw()
 end
 
 ----------------------
 -- On mouse press
 ----------------------
 function StateTitle:mousepressed(x,y,button)
-
 end
 
 ----------------------
@@ -77,29 +62,7 @@ end
 -- Keyreleased
 ----------------------
 function StateTitle:keyreleased(key, isrepeat)
-  -- Change button
-  --print(key,isrepeat)
-  if (key == 'left' or key == 'up') then
-    self.hover_num = self.hover_num - 1
-  end
-  if (key == 'right' or key == 'down') then
-    self.hover_num = self.hover_num + 1
-  end
-
-  for n,b in pairs(self.buttons) do
-    if b:keyreleased(key, isrepeat) then
-      print(n)
-      if     n == 1 then
-        StateList:switch(StateGame)
-      elseif n == 2 then
-        -- state = ConfigInstance
-      elseif n == 3 then
-        -- state = HelpInstane
-      elseif n == 4 then
-        quit() -- Goodbye our little game
-      end
-    end
-  end
+  self.buttons:keyreleased(key, isrepeat)
 end
 
 ----------------------

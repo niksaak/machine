@@ -4,7 +4,8 @@
 -- date: 2013/10/05
 -- authors: roxy
 ----------------------
-require('lua.button')
+require('lua.gui.button')
+require('lua.gui.button_list')
 require('lua.assets')
 require('lua.state')
 
@@ -18,32 +19,19 @@ StateGameover = State()
 ----------------------
 function StateGameover:initialize()
   print('initgameover')
-  self.buttons = { -- Buttons array
-  --[[1]]  Button.create("Заново", 50, 300, 'matricha', false),
-  --[[2]]  Button.create("Настроить[x]", 50, 350, 'matricha', false),
-  --[[3]]  Button.create("Помощь[x]", 50, 400, 'matricha', false),
-  --[[4]]  Button.create("Выйти", 50, 450, 'matricha', false)
-  }
-  self.hover_num = 1
+  self.buttons = ButtonList()
+  self.buttons:add(1,Button("Заново", 50, 300, 'matricha'))
+  self.buttons:add(2,Button("Настроить[x]", 50, 350, 'matricha'))
+  self.buttons:add(3,Button("Помощь[x]", 50, 400, 'matricha'))
+  self.buttons:add(4,Button("Выйти", 50, 450, 'matricha', 
+    function() StateList:switch(StateTitle) end))
+  self.buttons:check()
 end
 ----------------------
 -- Update state
 ----------------------
 function StateGameover:update(dt)
   Timer.update(dt)
-  for n,btn in pairs(self.buttons) do
-		btn:update(dt)
-    if n == self.hover_num then
-      btn:set_hover(true)
-    else
-      btn:set_hover(false)
-    end
-	end
-  if (self.hover_num > table.getn(self.buttons) ) then
-    self.hover_num = 1
-  elseif ( self.hover_num < 1 ) then
-    self.hover_num = table.getn(self.buttons)
-  end
 end
 
 ----------------------
@@ -52,9 +40,7 @@ end
 function StateGameover:draw()
   love.graphics.setColor(255,255,0)
   love.graphics.print("ВЫ, ЭТО, УМЕРЛИ. ПОЗДРАВЛЯЕМ.", 100, 50)
-  for n,btn in pairs(self.buttons) do
-		btn:draw()
-	end
+  self.buttons:draw()
 
 end
 
@@ -80,27 +66,7 @@ end
 function StateGameover:keyreleased(key, isrepeat)
   -- Change button
   --print(key,isrepeat)
-  if (key == 'left' or key == 'up') then
-    self.hover_num = self.hover_num - 1
-  end
-  if (key == 'right' or key == 'down') then
-    self.hover_num = self.hover_num + 1
-  end
-
-  for n,b in pairs(self.buttons) do
-    if b:keyreleased(key, isrepeat) then
-      print(n)
-      if     n == 1 then
-        -- Refresh game
-      elseif n == 2 then
-        -- state = ConfigInstance
-      elseif n == 3 then
-        -- state = HelpInstane
-      elseif n == 4 then
-        quit() -- Goodbye our little game
-      end
-    end
-  end
+  self.buttons:keyreleased(key, isrepeat)
 end
 
 ----------------------
