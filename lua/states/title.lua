@@ -20,13 +20,12 @@ StateTitle = State()
 ----------------------
 function StateTitle:initialize()
   self.buttons = ButtonList()
-  self.buttons:add(1,Button("Начать", 500, 300, 'matricha',
+  self.buttons:push(Button(1,"Начать", 500, 300, 'matricha',
     function () StateList:switch(StateGame) end))
-  self.buttons:add(2,Button("Настроить", 500, 350, 'matricha'))
-  self.buttons:add(3,Button("Помощь", 500, 400, 'matricha'))
-  self.buttons:add(4,Button("Выйти", 500, 450, 'matricha',
+  self.buttons:push(Button(2,"Настроить", 500, 350, 'matricha'))
+  self.buttons:push(Button(3,"Помощь", 500, 400, 'matricha'))
+  self.buttons:push(Button(4,"Выйти", 500, 450, 'matricha',
     function() quit() end))
-  self.buttons:check()
 end
 -- appendix to initialize:
 ----------------------

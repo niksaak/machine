@@ -20,10 +20,10 @@ StateGameover = State()
 function StateGameover:initialize()
   print('initgameover')
   self.buttons = ButtonList()
-  self.buttons:add(1,Button("Заново", 50, 300, 'matricha'))
-  self.buttons:add(2,Button("Настроить[x]", 50, 350, 'matricha'))
-  self.buttons:add(3,Button("Помощь[x]", 50, 400, 'matricha'))
-  self.buttons:add(4,Button("Выйти", 50, 450, 'matricha', 
+  self.buttons:push(Button(1,"Заново", 50, 300, 'matricha'))
+  self.buttons:push(Button(2,"Настроить[x]", 50, 350, 'matricha'))
+  self.buttons:push(Button(3,"Помощь[x]", 50, 400, 'matricha'))
+  self.buttons:push(Button(4,"Выйти", 50, 450, 'matricha', 
     function() StateList:switch(StateTitle) end))
   self.buttons:check()
 end
