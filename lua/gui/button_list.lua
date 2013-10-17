@@ -57,10 +57,15 @@ function ButtonList:keyreleased( key, isrepeat )
     btn:keyreleased(key, isrepeat)
   end
   --! переставляем клавиши.
-  if key == 'up' then
-    self:check(1)
-  elseif key == 'down' then
-    self:check(0)
+  for i,ckey in pairs(control_key.up) do
+    if key == ckey then
+      self:check(1)
+    end
+  end
+  for i,ckey in pairs(control_key.down) do
+    if key == ckey then
+      self:check(0)
+    end
   end
   --! process button !
   for i,ckey in pairs(control_key.action) do

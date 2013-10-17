@@ -48,7 +48,11 @@ control_key = {
   action      = {'z', 'return'},
   bomb        = {'x'},
   focus       = {'shift'},
-  escape      = {'esc'}
+  escape      = {'esc'},
+  up          = {'up'},
+  down        = {'down'},
+  left        = {'left'},
+  rigth       = {'right'}
 }
 
 ----------------------
