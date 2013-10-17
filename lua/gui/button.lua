@@ -15,7 +15,8 @@ require('lua.lib.class')
 ----------------------
 
 Button = class(
-  function(self, text, x, y, font, callback)
+  function(self, id, text, x, y, font, callback)
+    self.id = id
     self.hover = false
     self.text = text
     self.font = font
@@ -43,7 +44,7 @@ function Button:draw()
     xshift = 0
   end
     love.graphics.print(self.text, self.x - xshift, self.y )
-
+    love.graphics.setColor(255,255,255)
 end
 
 ----------------------
