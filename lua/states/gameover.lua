@@ -30,7 +30,6 @@ end
 -- Update state
 ----------------------
 function StateGameover:update(dt)
-  Timer.update(dt)
   for n,btn in pairs(self.buttons) do
 		btn:update(dt)
     if n == self.hover_num then
