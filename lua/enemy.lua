@@ -7,7 +7,6 @@
 require('lua.assets')
 require('lua.entity')
 require('lua.lib.class')
-Timer = require('lua.lib.timer')
 ----------------------
 -- Define enemy states
 ----------------------
