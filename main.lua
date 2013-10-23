@@ -13,7 +13,6 @@ require('lua.states.gameover') -- AND YEP
 require('lua.player')
 require('lua.lib.class')
 HC = require('lua.hadroncollider')
-Timer = require('lua.lib.timer')
 require('lua.state_list')
 ----------------------
 -- Initialise game
@@ -21,7 +20,6 @@ require('lua.state_list')
 function love.load()
   love.graphics.setMode(800, 600)
   Collider = HC(100, on_collide)
-  Timer.new()
   StateList:initialize()
   StateList:push(StateTitle)
   StateList:push(StateGame)
@@ -38,7 +36,6 @@ end
 -- Update game
 ----------------------
 function love.update(dt)
-  Timer.update(dt)
   StateList:get():update(dt)
 end
 

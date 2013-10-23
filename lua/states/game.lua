@@ -14,7 +14,6 @@ require('lua.entity')
 require('lua.emitter')
 require('lua.levels.level-1')
 HC = require('lua.hadroncollider')
-Timer = require('lua.lib.timer')
 
 ----------------------
 -- Construct
@@ -78,7 +77,6 @@ function StateGame:update(dt)
 
   -- Update collisions and timers
   Collider:update(dt)
-  Timer.update(dt)
 
   -- Update current level events
   if self.level:update() then
