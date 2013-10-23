@@ -1,5 +1,4 @@
 require('lua.enemy')
-Timer = require('lua.lib.timer')
 Trans = class(Enemy,
 function(self, x, y, speed)
   Enemy.init(self, x, y, 0, 1, speed, gfx.game.cond)
