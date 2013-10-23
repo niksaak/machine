@@ -11,15 +11,12 @@ end)
 function Capacitor:update(dt)
   Enemy.update(self, dt)
   if self.tmr:tick(dt) then
-    self.shoot()
+    self:shoot()
   end
 end
 
 function Capacitor:shoot()
   for i=0,4 do
-    -- XXX: attempt to index local 'self' (a nil value)
-    -- Probably getx() and gety() methods are unable to get capacitors' self
-    -- for some reason.
     Bullet(self:getx(), self:gety(), 0, 1 + i/10, 80, false, 'yellow')
   end
 end
