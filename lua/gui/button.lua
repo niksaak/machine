@@ -1,6 +1,6 @@
 ----------------------
 -- Button definiton
--- version: 0.3
+-- version: 0.4
 -- date: 2013/09/28
 -- author: roxy
 ----------------------
@@ -15,13 +15,10 @@ require('lua.lib.class')
 ----------------------
 
 Button = class(
-  function(self, id, text, x, y, font, callback)
-    self.id = id
+  function(self, x, y, text, font, callback)
     self.hover = false
     self.text = text
     self.font = font
-    self.width = gfx.font[font]:getWidth(text)
-    self.height = gfx.font[font]:getHeight()
     self.x = x
     self.y = y
     self.callback = callback
@@ -51,29 +48,26 @@ end
 -- Update a button
 ----------------------
 function Button:update(dt)
+  -- for some special effect
 end
 
 ----------------------
--- On key pressed
+-- Set hover onn
 ----------------------
-function Button:keypressed(key, isrepeat)
+function Button:select()
+  self.hover = true
 end
 
 ----------------------
--- On key released
+-- Set hover off
 ----------------------
-function Button:keyreleased(key, isrepeat)
-end
-----------------------
--- Set hover state
-----------------------
-function Button:set_hover(val)
-  self.hover = val
+function Button:unselect()
+  self.hover = false
 end
 
-function Button:onClick()
-  print ('click!')
-  if self.callback ~= nil then
+function Button:activate()
+  print ('Button:activate')
+  if type(self.callback) == 'function' then
     self.callback()
   end
 end
