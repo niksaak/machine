@@ -89,5 +89,12 @@ function remove_if_not(test, tab)
 end
 
 ----------------------
+-- table.pack for lua 5.1
+----------------------
+function table.pack(...)
+  return { n = select("#", ...), ... }
+end
+
+----------------------
 -- EOF
 ----------------------
