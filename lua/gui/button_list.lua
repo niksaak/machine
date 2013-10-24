@@ -6,78 +6,88 @@
 ----------------------
 
 require('lua.define')
+require('function_lib')
 require('lua.lib.class')
 require('lua.gui.button')
 ButtonList = class(
-  function(self)
+  function(self, ...)
     self.buttons = {}
+    local args = table.pack(...) --! get varargs
+    for i = 1, args.n do
+      if args[i] ~= nil then
+        table.insert( self.buttons, button ) --! push them 
+      end
+    end
+    
     self.hover_id = 1
   end
 )
 
 ----------------------
--- Append button to list by id
+-- Append button to list end
 ----------------------
-function ButtonList:push( button )
+function ButtonList:addButton( button )
   table.insert( self.buttons, button ) --! Добавляем кнопку по ключу.
-  table.sort( self.buttons, function(a,b) return a.id > b.id; end ) --! сортируем индексы
 end
 
 ----------------------
--- Get current selected button
+-- Append buttons to list end one by one
 ----------------------
-function ButtonList:check(direction)
-  --! Unhover ceurrent
-  if  self.buttons[ self.hover_id ]~= nil then
-    self.buttons[ self.hover_id ]:set_hover(false)
+function ButtonList:addButtons( ... )
+  local args = table.pack(...) --! get varargs
+  for i = 1, args.n do
+    if args[i] ~= nil then
+      self:addButton(args[i]) --! push them 
+    end
   end
-  local idx = -1
-  if (direction == 1) then idx = 1 end
-  self.hover_id = self.hover_id + idx
+end
 
-  --! n = > 1
-  if self.hover_id > table.getn(self.buttons)  then
+----------------------
+-- Set current selected button by id
+----------------------
+function ButtonList:select( num )
+  self.buttons[ self.hover_id ]:unselect() --! Unselect current
+  local size = table.getn(self.buttons) --! Get array size
+  if num > size then  --! From last position to first
     self.hover_id = 1
-  --! 0 => n
-  elseif self.hover_id < 1  then
-    self.hover_id = table.getn(self.buttons)
+  elseif num < 1  then
+    self.hover_id = size --! From first to last
+  else
+    self.hover_id = num --! Simple change position
   end
-
-  --! hover current
-  self.buttons[ self.hover_id ]:set_hover(true)
-  play_se("btn_hover") --! awesome sound
+  self.buttons[ self.hover_id ]:select() --! Select new Current Button
+  play_se("btn_hover") --! Play se.
 end
 
 ----------------------
--- Keyreleased
+-- Set next selected button
 ----------------------
-function ButtonList:keyreleased( key, isrepeat )
-  --! do some stuff with buttons or what it is.
-  for id,btn in pairs(self.buttons) do
-    btn:keyreleased(key, isrepeat)
-  end
-  --! переставляем клавиши.
-  for i,ckey in pairs(control_key.up) do
-    if key == ckey then
-      self:check(1)
-    end
-  end
-  for i,ckey in pairs(control_key.down) do
-    if key == ckey then
-      self:check(0)
-    end
-  end
-  --! process button !
-  for i,ckey in pairs(control_key.action) do
-    if key == ckey then
-      self.buttons[self.hover_id]:onClick()
-      play_se("btn_click")
-    end
-  end
+function ButtonList:selectNext()
+  self.hover_id = self.hover_id + 1
+  self:select(self.hover_id)
 end
 
+----------------------
+-- Set previous selected button
+----------------------
+function ButtonList:selectPrev()
+  self.hover_id = self.hover_id - 1
+  self:select(self.hover_id)
+end
+
+----------------------
+-- Draw buttons
+----------------------
 function ButtonList:draw()
   for n,btn in pairs (self.buttons) do
     btn:draw()
   end
+end
+
+----------------------
+-- Activate current
+----------------------
+
+function ButtonList:activateCurrent()
+  self.buttons[self.hover_id]:activate()
 end
