@@ -69,6 +69,7 @@ function Button:activate()
   print ('Button:activate')
   if type(self.callback) == 'function' then
     self.callback()
+    play_se("btn_click")
   end
 end
 ----------------------
