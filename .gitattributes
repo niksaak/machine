@@ -1,0 +1,10 @@
+# lua code is text
+*.lua text
+
+# .bat files must have crlf line-endings
+.bat text eol=crlf
+
+# contents of gfx/ and sfx/ are not text
+gfx/* -text
+sfx/* -text
+
