@@ -63,16 +63,14 @@ end
 -- Set next selected button
 ----------------------
 function ButtonList:selectNext()
-  self.hover_id = self.hover_id + 1
-  self:select(self.hover_id)
+  self:select(self.hover_id+1)
 end
 
 ----------------------
 -- Set previous selected button
 ----------------------
 function ButtonList:selectPrev()
-  self.hover_id = self.hover_id - 1
-  self:select(self.hover_id)
+  self:select(self.hover_id-1)
 end
 
 ----------------------
