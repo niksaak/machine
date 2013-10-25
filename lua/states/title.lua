@@ -19,13 +19,13 @@ StateTitle = State()
 -- Initialize state
 ----------------------
 function StateTitle:initialize()
-  self.buttons = ButtonList()
-  self.buttons:push(Button(1,"Начать", 500, 300, 'matricha',
-    function () StateList:switch(StateGame) end))
-  self.buttons:push(Button(2,"Настроить", 500, 350, 'matricha'))
-  self.buttons:push(Button(3,"Помощь", 500, 400, 'matricha'))
-  self.buttons:push(Button(4,"Выйти", 500, 450, 'matricha',
-    function() quit() end))
+  self.buttons = ButtonList(
+    Button(500, 300, "Начать", 'matricha', function () StateList:switch(StateGame) end),
+    Button(500, 350, "Настроить", 'matricha', nil),
+    Button(500, 400, "Помощь", 'matricha', nil),
+    Button(500, 450, "Выйти", 'matricha', function() quit() end)
+  )
+  self.buttons:select(1)
 end
 -- appendix to initialize:
 ----------------------
@@ -61,7 +61,21 @@ end
 -- Keyreleased
 ----------------------
 function StateTitle:keyreleased(key, isrepeat)
-  self.buttons:keyreleased(key, isrepeat)
+  for i,ckey in pairs(control_key.up) do
+    if key == ckey then
+      self.buttons:selectPrev()
+    end
+  end
+  for i,ckey in pairs(control_key.down) do
+    if key == ckey then
+      self.buttons:selectNext()
+    end
+  end
+  for i,ckey in pairs(control_key.action) do
+    if key == ckey then
+      self.buttons:activateCurrent()
+    end
+  end
 end
 
 ----------------------

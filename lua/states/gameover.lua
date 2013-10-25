@@ -19,13 +19,13 @@ StateGameover = State()
 ----------------------
 function StateGameover:initialize()
   print('initgameover')
-  self.buttons = ButtonList()
-  self.buttons:push(Button(1,"Заново", 50, 300, 'matricha'))
-  self.buttons:push(Button(2,"Настроить[x]", 50, 350, 'matricha'))
-  self.buttons:push(Button(3,"Помощь[x]", 50, 400, 'matricha'))
-  self.buttons:push(Button(4,"Выйти", 50, 450, 'matricha', 
-    function() StateList:switch(StateTitle) end))
-  self.buttons:check()
+  self.buttons = ButtonList(
+    Button(50, 300, "Заново[x]", 'matricha', nil),
+    Button(50, 350, "Настроить[x]", 'matricha', nil),
+    Button(50, 400, "Помощь[x]", 'matricha', nil),
+    Button(50, 450, "Выйти", 'matricha', function() StateList:switch(StateTitle) end)
+  )
+  self.buttons:select(4)
 end
 ----------------------
 -- Update state
@@ -64,9 +64,21 @@ end
 -- Keyreleased
 ----------------------
 function StateGameover:keyreleased(key, isrepeat)
-  -- Change button
-  --print(key,isrepeat)
-  self.buttons:keyreleased(key, isrepeat)
+  for i,ckey in pairs(control_key.up) do
+    if key == ckey then
+      self.buttons:selectPrev()
+    end
+  end
+  for i,ckey in pairs(control_key.down) do
+    if key == ckey then
+      self.buttons:selectNext()
+    end
+  end
+  for i,ckey in pairs(control_key.action) do
+    if key == ckey then
+      self.buttons:activateCurrent()
+    end
+  end
 end
 
 ----------------------
