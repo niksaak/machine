@@ -6,18 +6,13 @@
 ----------------------
 
 require('lua.define')
-require('function_lib')
+require('lua.function_lib')
 require('lua.lib.class')
 require('lua.gui.button')
 ButtonList = class(
   function(self, ...)
     self.buttons = {}
-    local args = table.pack(...) --! get varargs
-    for i = 1, args.n do
-      if args[i] ~= nil then
-        table.insert( self.buttons, button ) --! push them 
-      end
-    end
+    self:addButtons( ... )
     
     self.hover_id = 1
   end
@@ -36,7 +31,9 @@ end
 function ButtonList:addButtons( ... )
   local args = table.pack(...) --! get varargs
   for i = 1, args.n do
+
     if args[i] ~= nil then
+
       self:addButton(args[i]) --! push them 
     end
   end
