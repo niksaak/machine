@@ -15,14 +15,14 @@ local state = {ALIVE = 1, DEAD = 2}
 -- Define enemy class
 ----------------------
 Enemy = class(Entity,
-function(self, x, y, xforce, yforce, speed, image, event)
+function(self, x, y, xforce, yforce, speed, hb_r, image, event)
   -- Init
   Entity.init(self, x, y)
   self.xforce = xforce
   self.yforce = yforce
   self.speed = speed
   self.lives = 0
-  self.hb_r = 3
+  self.hb_r = hb_r
   -- State
   self.state = state.ALIVE
   -- Event
