@@ -25,7 +25,7 @@ function StateGameover:initialize()
     Button(50, 400, "Помощь[x]", 'matricha', nil),
     Button(50, 450, "Выйти", 'matricha', function() StateList:switch(StateTitle) end)
   )
-  self.buttons:select(4)
+  self.buttons:select(1)
 end
 
 ----------------------
