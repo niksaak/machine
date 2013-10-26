@@ -44,12 +44,16 @@ is_hard = false
 ----------------------
 -- Key shortcuts
 ----------------------
---[[key = {
-  action      = {'z', 'enter', 'space'}
-  bomb        = {'x'}
-  focus       = {'shift'}
-  escape      = {'esc'}
-}]]
+control_key = {
+  action      = {'z', 'return'},
+  bomb        = {'x'},
+  focus       = {'shift'},
+  escape      = {'esc'},
+  up          = {'up'},
+  down        = {'down'},
+  left        = {'left'},
+  rigth       = {'right'}
+}
 
 ----------------------
 -- EOF
