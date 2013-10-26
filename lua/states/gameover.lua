@@ -27,6 +27,7 @@ function StateGameover:initialize()
   )
   self.buttons:select(4)
 end
+
 ----------------------
 -- Update state
 ----------------------
@@ -46,7 +47,6 @@ end
 -- On mouse press
 ----------------------
 function StateGameover:mousepressed(x,y,button)
-
 end
 
 ----------------------
@@ -83,7 +83,6 @@ end
 -- Solve collisions
 ----------------------
 function StateGameover:on_collide(dt, shp_a, shp_b, dx, dy)
-  -- print('collide!')
 end
 
 ----------------------
