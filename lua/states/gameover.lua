@@ -68,7 +68,7 @@ function StateGameover:keyreleased(key, isrepeat)
   if isControlKey(key, 'down') then
     self.buttons:selectNext()
   end
-  if not isrepeat then
+  if isrepeat then
     if isControlKey(key, 'action') then
       self.buttons:activateCurrent()
     end
