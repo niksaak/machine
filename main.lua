@@ -13,8 +13,10 @@ require('lua.states.game') -- YEP
 require('lua.states.gameover') -- AND YEP
 require('lua.player')
 require('lua.lib.class')
-HC = require('lua.hadroncollider')
 require('lua.state_list')
+
+HC = require('lua.hadroncollider')
+Vec = require('lua.lib.vector-light')
 ----------------------
 -- Initialise game
 ----------------------
