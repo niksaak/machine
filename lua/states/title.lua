@@ -9,6 +9,7 @@ require('lua.gui.button_list')
 require('lua.assets')
 require('lua.state')
 require('lua.state_list')
+require('lua.function_lib')
 
 ----------------------
 -- Construct
@@ -59,18 +60,14 @@ end
 -- Keyreleased
 ----------------------
 function StateTitle:keyreleased(key, isrepeat)
-  for i,ckey in pairs(control_key.up) do
-    if key == ckey then
-      self.buttons:selectPrev()
-    end
+  if isControlKey(key, 'up') then
+    self.buttons:selectPrev()
   end
-  for i,ckey in pairs(control_key.down) do
-    if key == ckey then
-      self.buttons:selectNext()
-    end
+  if isControlKey(key, 'down') then
+    self.buttons:selectNext()
   end
-  for i,ckey in pairs(control_key.action) do
-    if key == ckey then
+  if not isrepeat then
+    if isControlKey(key, 'action') then
       self.buttons:activateCurrent()
     end
   end

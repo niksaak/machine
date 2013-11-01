@@ -96,5 +96,17 @@ function table.pack(...)
 end
 
 ----------------------
+-- Get control key state
+----------------------
+function isControlKey(key, type)
+  for i,ckey in pairs(control_key[type]) do
+    if key == ckey then
+      return true
+    end
+  end
+  return false
+end
+
+----------------------
 -- EOF
 ----------------------
