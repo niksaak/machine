@@ -16,8 +16,12 @@ function Capacitor:update(dt)
 end
 
 function Capacitor:shoot()
+  local px, py = Vec.normalize(
+      Vec.sub(Player:getx(), Player:gety(), self:getx(), self:gety()))
+
   for i=0,4 do
-    Bullet(self:getx(), self:gety(), 0, 1 + i/10, 80, false, 'yellow')
+    local dx, dy = Vec.add(px, py, Vec.mul(i/10, px, py))
+    Bullet(self:getx(), self:gety(), dx, dy, 80, false, 'yellow')
   end
 end
 
